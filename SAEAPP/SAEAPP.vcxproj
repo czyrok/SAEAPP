@@ -139,7 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algo.cpp" />
+    <ClCompile Include="panda.cpp" />
     <ClCompile Include="SAEAPP.cpp" />
+    <ClCompile Include="stats.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
