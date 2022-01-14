@@ -1,4 +1,8 @@
-void actualiserStats(jardin& jardin) {
+#pragma once
+#include "var.h"
+using namespace std;
+
+void actualiserStats(jardins& jardin) {
 	int max = 0;
 	int min = jardin.bambous[0].taillePousse;
 	int sommePousseBambous = 0;
@@ -17,7 +21,7 @@ void actualiserStats(jardin& jardin) {
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < NBStats - 1; j++) {
-			jardin.stats[i][j] = jardin.stats[i + 1][j + 1]
+			jardin.stats[i][j] = jardin.stats[i + 1][j + 1];
 		}
 	}
 

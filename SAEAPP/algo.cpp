@@ -1,5 +1,11 @@
+#pragma once
+#include "var.h"
+#include "panda.cpp"
+#include "stats.cpp"
+using namespace std;
+
 void couperBambou(jardins& jardin) {
-	if (strcmp(jardin.algo, "ReduceMax") == 0) {
+	if (strcmp(jardin.nomAlgo, "ReduceMax") == 0) {
 		int indMax = 0;
 
 		for (int i = 0; i < jardin.NBBambous; i++) {
@@ -8,13 +14,13 @@ void couperBambou(jardins& jardin) {
 			}
 		}
 
-		int statut = deplacementPanda(jardin, indMax);
+		int statut = deplacementPanda(jardin, 0, indMax);
 
 		if (statut == 1) {
-			pandaCoupeBambou(jardin);
+			pandaCoupeBambou(jardin, 0);
 		}
 	}
-	else if (strcmp(jardin.algo, "ReduceFastest") == 0) {
+	else if (strcmp(jardin.nomAlgo, "ReduceFastest") == 0) {
 
 	}
 
