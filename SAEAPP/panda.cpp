@@ -1,11 +1,16 @@
+#include <cstring>
+using namespace std;
+
 int deplacementPanda(jardins& jardin, int x) {
 	jardin.panda.position = x;
+
+	return 1;
 }
 
-int actualiserAffichagePanda(jardins& jardin) {
+void actualiserAffichagePanda(jardins& jardin) {
 
 }
 
-int pandaCoupeBambou(jardins& jardin) {
-	jardin.bambous[jardin.panda.position].indDPousse = 1;
+void pandaCoupeBambou(jardins& jardin) {
+	jardin.bambous[jardin.panda.position].indDPousse = 0;
 }
