@@ -1,8 +1,8 @@
 #pragma once
-#include "var.h"
-#include "panda.cpp"
-#include "stats.cpp"
+#include <iostream>
 using namespace std;
+
+#include "var.h"
 
 void couperBambou(jardins& jardin) {
 	if (strcmp(jardin.nomAlgo, "ReduceMax") == 0) {

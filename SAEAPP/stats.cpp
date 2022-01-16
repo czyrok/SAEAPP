@@ -1,6 +1,7 @@
 #pragma once
-#include "var.h"
 using namespace std;
+
+#include "var.h"
 
 void actualiserStats(jardins& jardin) {
 	int max = 0;

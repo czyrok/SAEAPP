@@ -1,4 +1,5 @@
-#include <iostream>
+#pragma once
+using namespace std;
 
 const int NBStats = 100;
 const int tailleMaxBambous = 30;
@@ -23,3 +24,16 @@ struct jardins {
 	float stats[3][NBStats];
 	char nomAlgo[10];
 };
+
+
+// prototype algo.cpp
+void couperBambou(jardins&);
+void croissanceBambou(jardins&);
+
+// prototype stats.cpp
+void actualiserStats(jardins&);
+
+// prototype panda.cpp
+int deplacementPanda(jardins&, int, int);
+void actualiserAffichagePanda(jardins&);
+void pandaCoupeBambou(jardins&, int);
