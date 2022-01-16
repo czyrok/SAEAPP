@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <cstring>
 using namespace std;
 
 #include "var.h"
@@ -16,7 +16,7 @@ void couperBambou(jardins& jardin) {
 
 		int statut = deplacementPanda(jardin, 0, indMax);
 
-		if (statut == 1) {
+		if (statut == true) {
 			pandaCoupeBambou(jardin, 0);
 		}
 	}
