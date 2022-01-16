@@ -3,30 +3,39 @@ using namespace std;
 
 #include "var.h"
 
-void actualiserStats(jardins& jardin) {
+void actualiserStats(jardins &jardin)
+{
 	int max = 0;
 	int min = jardin.bambous[0].taillePousse;
 	int sommePousseBambous = 0;
 
-	for (int i = 0; i < jardin.NBBambous; i++) {
-		if (jardin.bambous[i].taillePousse > max) {
+	for (int i = 0; i < jardin.NBBambous; i++)
+	{
+		if (jardin.bambous[i].taillePousse > max)
+		{
 			max = jardin.bambous[i].taillePousse;
 		}
 
-		if (jardin.bambous[i].taillePousse < min) {
+		if (jardin.bambous[i].taillePousse < min)
+		{
 			min = jardin.bambous[i].taillePousse;
 		}
 
 		sommePousseBambous += jardin.bambous[i].taillePousse;
 	}
 
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < NBStats - 1; j++) {
-			jardin.stats[i][j] = jardin.stats[i + 1][j + 1];
-		}
+	if (jardin.indStat < NBStats)
+	{
+		jardin.tailleMaxStat[jardin.indStat] = max;
+		jardin.tailleMinStat[jardin.indStat] = min;
+		jardin.tailleMoyStat[jardin.indStat] = sommePousseBambous / jardin.NBBambous;
+	}
+	else
+	{
+		jardin.tailleMaxStat[jardin.indStat % NBStats] = max;
+		jardin.tailleMinStat[jardin.indStat % NBStats] = min;
+		jardin.tailleMoyStat[jardin.indStat % NBStats] = sommePousseBambous / jardin.NBBambous;
 	}
 
-	jardin.stats[0][NBStats - 1] = max;
-	jardin.stats[1][NBStats - 1] = min;
-	jardin.stats[2][NBStats - 1] = sommePousseBambous / jardin.NBBambous;
+	jardin.indStat++;
 }
