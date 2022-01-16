@@ -1,9 +1,12 @@
 #pragma once
 using namespace std;
 
-const int NBStats = 100;
 const int tailleMaxBambous = 30;
-const int NBDeplacementLimite = -1;
+const int maxNBBambous = 100;
+
+const int maxNBPandas = 10;
+
+const int NBStats = 100;
 
 struct bambous {
 	float taillePousse;
@@ -15,16 +18,23 @@ struct pandas {
 };
 
 struct jardins {
-	bambous bambous[100];
+	char nom[100];
+
+	bambous bambous[maxNBBambous];
 	int NBBambous;
 
-	pandas pandas[10];
+	pandas pandas[maxNBPandas];
 	int NBPandas;
+	int pandaDeplacementLimite;
 
-	float stats[3][NBStats];
-	char nomAlgo[10];
+	float tailleMaxStat[NBStats];
+	float tailleMinStat[NBStats];
+	float tailleMoyStat[NBStats];
+
+	int indStat = 0;
+
+	char nomAlgo[30];
 };
-
 
 // prototype algo.cpp
 void couperBambou(jardins&);
@@ -34,6 +44,6 @@ void croissanceBambou(jardins&);
 void actualiserStats(jardins&);
 
 // prototype panda.cpp
-int deplacementPanda(jardins&, int, int);
+bool deplacementPanda(jardins&, int, int);
 void actualiserAffichagePanda(jardins&);
 void pandaCoupeBambou(jardins&, int);
