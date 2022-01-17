@@ -12,7 +12,6 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 		if (jardin.pandaDeplacementLimite == -1)
 		{
 			jardin.pandas[indPanda].x = x;
-			cout << "yo" << endl;
 		}
 		else
 		{
