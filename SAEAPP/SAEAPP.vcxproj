@@ -145,6 +145,7 @@
     <ClCompile Include="panda.cpp" />
     <ClCompile Include="var.h" />
     <ClCompile Include="stats.cpp" />
+    <ClCompile Include="visuel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

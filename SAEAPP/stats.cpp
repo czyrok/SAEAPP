@@ -5,9 +5,9 @@ using namespace std;
 
 void actualiserStats(jardins &jardin)
 {
-	int max = 0;
-	int min = jardin.bambous[0].taillePousse;
-	int sommePousseBambous = 0;
+	float max = 0;
+	float min = jardin.bambous[0].taillePousse;
+	float sommePousseBambous = 0;
 
 	for (int i = 0; i < jardin.NBBambous; i++)
 	{
