@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 
+#include <iostream>
+
 #include "var.h"
 
 bool deplacementPanda(jardins &jardin, int indPanda, int x)

@@ -10,6 +10,35 @@ int main(int argc, char* argv[])
     jardins jardins[2];
     int NBJardins = 0;
 
+	bambous bambous[15];
+	int NBBambous = 0;
+
+	for (int i = 0; i < 10; i++) {
+		initBambous(
+			bambous,
+			NBBambous,
+			i + 1
+		);
+	}
+
+	pandas pandas[1];
+	int NBPandas = 0;
+
+	initPandas(pandas, NBPandas, 0);
+
+	initJardin(
+		jardins,
+		NBJardins,
+		"cc",
+		bambous,
+		NBBambous,
+		pandas,
+		NBPandas,
+		-1,
+		"ReduceMax",
+		false
+	);
+
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) return 1;
 
 	SDL_Window* fen = SDL_CreateWindow("SAPP",
@@ -36,7 +65,13 @@ int main(int argc, char* argv[])
 		switch (event.type) {
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
+				croissanceBambou(jardins[0]);
+				couperBambou(jardins[0]);
 
+				afficherCarre(rendu);
+
+				actualiserAffichageBambous(jardins[0], rendu);
+				actualiserAffichagePandas(jardins[0], rendu);
 
 				/*if (event.button.x > TAILLEX - TAILLE_PA) {
 					for (int i = 0; i < NB_COULEURS_PA; i++) {

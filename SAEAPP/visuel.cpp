@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 
+#include <iostream>
+
 #include "var.h"
 
 void afficherMenu(SDL_Renderer* rendu) {
@@ -30,7 +32,34 @@ void afficherCarre(SDL_Renderer* rendu) {
 	SDL_RenderPresent(rendu);
 }
 
-void actualiserAffichagePanda(jardins& jardin)
+void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
 {
+	SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
 
+	for (int i = 0; i < jardin.NBPandas; i++) {
+		SDL_Rect rect;
+		rect.x = TAILLEMENUX + taillePandaX * jardin.pandas[i].x;
+		rect.y = TAILLEFENY - taillePandaY;
+		rect.w = taillePandaX;
+		rect.h = taillePandaY;
+
+		SDL_RenderFillRect(rendu, &rect);
+	}
+
+	SDL_RenderPresent(rendu);
+}
+
+void actualiserAffichageBambous(jardins& jardin, SDL_Renderer* rendu)
+{
+	SDL_SetRenderDrawColor(rendu, 68, 118, 54, 255);
+
+	for (int i = 0; i < jardin.NBBambous; i++) {
+		for (int j = 0; j < jardin.bambous[i].taillePousse; j++) {
+			SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardin.bambous[i].vitessePousse * (float)7 * (j + 1))), tailleBambousX - 4, jardin.bambous[i].vitessePousse * 7 };
+
+			SDL_RenderFillRect(rendu, &carre);
+		}
+	}
+
+	SDL_RenderPresent(rendu);
 }
