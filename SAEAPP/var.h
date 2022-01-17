@@ -105,3 +105,6 @@ void actualiserAffichagePandas(jardins&, SDL_Renderer*);
 void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 void afficherIMGBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+
+
+void importerConfig(jardins[], int&);
