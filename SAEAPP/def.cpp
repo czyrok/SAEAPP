@@ -5,8 +5,8 @@ using namespace std;
 
 void initJardin(
     jardins jardins[],
+    int& NBJardins,
     char nomJardin[],
-    int NBJardins,
     bambous bambous[],
     int NBBambous,
     pandas pandas[],
