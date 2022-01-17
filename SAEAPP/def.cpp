@@ -45,6 +45,9 @@ void initJardin(
 
    jardins[NBJardins].manuelActive = manuelActive;
 
+   jardins[NBJardins].indStat = 0;
+   jardins[NBJardins].NBCoupesStat = 0;
+
    NBJardins++;
 }
 
@@ -64,6 +67,7 @@ void initPandas(
     int& NBPandas,
     int x)
 {
-    
     pandas[NBPandas].x = x;
+
+    NBPandas++;
 }
