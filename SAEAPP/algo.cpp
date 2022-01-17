@@ -29,6 +29,6 @@ void couperBambou(jardins& jardin) {
 
 void croissanceBambou(jardins& jardin) {
 	for (int i = 0; i < jardin.NBBambous; i++) {
-		jardin.bambous[i].taillePousse += jardin.bambous[i].vitessePousse;
+		jardin.bambous[i].taillePousse += 1;
 	}
 }
