@@ -122,4 +122,6 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 		for (i = 0; i < jardin.indStat % 100; i++) {
 		}
 	}
+
+	SDL_RenderPresent(rendu);
 }
