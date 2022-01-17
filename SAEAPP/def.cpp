@@ -8,13 +8,13 @@ using namespace std;
 void initJardin(
     jardins jardins[],
     int& NBJardins,
-    char nomJardin[],
+    const char nomJardin[],
     bambous bambous[],
     int NBBambous,
     pandas pandas[],
     int NBPandas,
     int pandaDeplacementLimite,
-    char nomAlgo[],
+    const char nomAlgo[],
     bool manuelActive)
 {
     strcpy_s(jardins[NBJardins].nom, nomJardin);
@@ -23,6 +23,8 @@ void initJardin(
         jardins[NBJardins].bambous[i] = bambous[i];
     }
 
+    jardins[NBJardins].NBBambous = NBBambous;
+
    jardins[NBJardins].NBCoupesStat = 0;
    
    strcpy_s(jardins[NBJardins].nomAlgo, nomAlgo);
@@ -30,6 +32,8 @@ void initJardin(
    for (int i = 0; i < NBPandas; i++) {
        jardins[NBJardins].pandas[i] = pandas[i];
    }
+
+   jardins[NBJardins].NBPandas = NBPandas;
 
    for (int i = 0; i < NBStats; i++) {
        jardins[NBJardins].tailleMaxStat[i] = 0;
@@ -62,6 +66,4 @@ void initPandas(
 {
     
     pandas[NBPandas].x = x;
-
-
 }
