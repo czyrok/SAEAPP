@@ -5,11 +5,13 @@ using namespace std;
 #include<SDL_image.h>
 #include<SDL_ttf.h>
 
-const int tailleMaxBambous = 480;
+const int tailleMaxBambousY = 480;
 const int maxNBBambous = 100;
+const int tailleBambousX = 6;
 
-const int taillePanda = 20;
+const int taillePandaY = 20;
 const int maxNBPandas = 10;
+const int taillePandaX = tailleBambousX;
 
 const int NBStats = 100;
 
@@ -48,8 +50,8 @@ struct jardins {
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
-const int TAILLEFENX = (maxNBBambous * 6) + TAILLEMENUX + (NBStats * 6);
-const int TAILLEFENY = tailleMaxBambous + taillePanda + TAILLEBARY;
+const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + (NBStats * tailleBambousX);
+const int TAILLEFENY = tailleMaxBambousY + taillePandaY + TAILLEBARY;
 
 // prototype algo.cpp
 void couperBambou(jardins&);
