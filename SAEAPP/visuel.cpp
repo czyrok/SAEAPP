@@ -34,19 +34,19 @@ void afficherCarre(SDL_Renderer* rendu) {
 
 void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
 {
-	int i, nouveau;
-	jardin.pandas[i]->x = 0;
-	for (i = 0; i < jardin.NBPandas; i++) {
-		jardin.pandas[i]->x = 6 + x;
-		nouveau = jardin.pandas[i]->x;
+	SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+
+	for (int i = 0; i < jardin.NBPandas; i++) {
 		SDL_Rect rect;
-		rect.x = TAILLEMENUX + nouveau;
-		rect.y = TAILLEFENY - 6;
-		rect.w = 20;
-		rect.h = 6;
-		SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+		rect.x = TAILLEMENUX + taillePandaX * jardin.pandas[i].x;
+		rect.y = TAILLEFENY - taillePandaY;
+		rect.w = taillePandaX;
+		rect.h = taillePandaY;
+
 		SDL_RenderFillRect(rendu, &rect);
 	}
+
+	SDL_RenderPresent(rendu);
 }
 
 void actualiserAffichageBambous(jardins& jardin, SDL_Renderer* rendu)
