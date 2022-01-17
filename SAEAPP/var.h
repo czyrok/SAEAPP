@@ -7,7 +7,7 @@ using namespace std;
 
 const int tailleMaxBambousY = 480;
 const int maxNBBambous = 100;
-const int tailleBambousX = 6;
+const int tailleBambousX = 8;
 
 const int taillePandaY = 20;
 const int maxNBPandas = 10;
@@ -16,7 +16,7 @@ const int taillePandaX = tailleBambousX;
 const int NBStats = 100;
 
 struct bambous {
-	float taillePousse;
+	int taillePousse;
 	float vitessePousse;
 };
 
@@ -68,3 +68,30 @@ void pandaCoupeBambou(jardins&, int);
 void afficherMenu(SDL_Renderer*);
 void afficherBar(SDL_Renderer*);
 void afficherCarre(SDL_Renderer*);
+
+void initJardin(
+	jardins[],
+	int&,
+	const char[],
+	bambous[],
+	int,
+	pandas[],
+	int,
+	int,
+	const char[],
+	bool
+);
+
+void initBambous(
+	bambous[],
+	int&,
+	float
+);
+
+void initPandas(
+	pandas[],
+	int&,
+	int
+);
+
+void actualiserAffichageBambous(jardins&, SDL_Renderer*);
