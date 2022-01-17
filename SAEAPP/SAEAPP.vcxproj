@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algo.cpp" />
+    <ClCompile Include="def.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="panda.cpp" />
     <ClCompile Include="var.h" />
     <ClCompile Include="stats.cpp" />
