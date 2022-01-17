@@ -27,6 +27,8 @@ struct jardins {
 	int NBPandas;
 	int pandaDeplacementLimite;
 
+	int NBCoupesStat;
+
 	float tailleMaxStat[NBStats];
 	float tailleMinStat[NBStats];
 	float tailleMoyStat[NBStats];
