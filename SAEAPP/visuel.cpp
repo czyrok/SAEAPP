@@ -30,7 +30,20 @@ void afficherCarre(SDL_Renderer* rendu) {
 	SDL_RenderPresent(rendu);
 }
 
-void actualiserAffichagePanda(jardins& jardin)
+void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
 {
-
+	int i, nouveau;
+	jardin.pandas[i]->x = 0;
+	for (i = 0; i < jardin.NBPandas; i++) {
+		jardin.pandas[i]->x = 6 + x;
+		nouveau = jardin.pandas[i]->x;
+		SDL_Rect rect;
+		rect.x = TAILLEMENUX + nouveau;
+		rect.y = TAILLEFENY - 6;
+		rect.w = 20;
+		rect.h = 6;
+		SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+		SDL_RenderFillRect(rendu, &rect);
+	}
+	SDL_RenderPresent(rendu);
 }
