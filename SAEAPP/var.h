@@ -5,7 +5,7 @@ using namespace std;
 #include<SDL_image.h>
 #include<SDL_ttf.h>
 
-const int tailleMaxBambousY = 480;
+const int tailleMaxBambousY = 600;
 const int maxNBBambous = 40;
 const int tailleBambousX = 15;
 
@@ -15,7 +15,8 @@ const int taillePandaX = tailleBambousX;
 
 const int tailleStatsY = tailleMaxBambousY + taillePandaY;
 const int NBStats = 100;
-const int tailleStatsX = NBStats * 3;
+const int tailleStatX = 6;
+const int tailleStatsX = NBStats * tailleStatX;
 
 struct bambous {
 	int taillePousse;
@@ -102,5 +103,6 @@ void initPandas(
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
 void actualiserAffichagePandas(jardins&, SDL_Renderer*);
 
-void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][50], int&);
-void afficherBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][50], int);
+void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
+void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+void afficherIMGBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
