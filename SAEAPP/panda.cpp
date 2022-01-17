@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 
+#include <iostream>
+
 #include "var.h"
 
 bool deplacementPanda(jardins &jardin, int indPanda, int x)
@@ -10,6 +12,7 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 		if (jardin.pandaDeplacementLimite == -1)
 		{
 			jardin.pandas[indPanda].x = x;
+			cout << "yo" << endl;
 		}
 		else
 		{
