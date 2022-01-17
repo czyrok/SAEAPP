@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SAEAPP.cpp">
+    <ClCompile Include="var.h">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="panda.cpp">
@@ -25,6 +25,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="algo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="def.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
