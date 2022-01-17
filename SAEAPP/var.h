@@ -13,7 +13,9 @@ const int taillePandaY = 20;
 const int maxNBPandas = 10;
 const int taillePandaX = tailleBambousX;
 
+const int tailleStatsY = tailleMaxBambousY + taillePandaY;
 const int NBStats = 100;
+const int tailleStatsX = NBStats * 3;
 
 struct bambous {
 	int taillePousse;
@@ -50,8 +52,10 @@ struct jardins {
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
-const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + (NBStats * 3);
-const int TAILLEFENY = tailleMaxBambousY + taillePandaY + TAILLEBARY;
+const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + tailleStatsX;
+const int TAILLEFENY = tailleStatsY + TAILLEBARY;
+
+const int NBMaxCaracBoutons = 50;
 
 // prototype algo.cpp
 void couperBambou(jardins&);
@@ -96,3 +100,6 @@ void initPandas(
 
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
 void actualiserAffichagePandas(jardins&, SDL_Renderer*);
+
+void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][50], int&);
+void afficherBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][50], int);

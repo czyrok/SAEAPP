@@ -24,12 +24,12 @@ void afficherBar(SDL_Renderer* rendu) {
 }
 
 void afficherCarre(SDL_Renderer* rendu) {
-	SDL_Rect carre = { TAILLEMENUX, TAILLEBARY, TAILLEFENX - TAILLEMENUX - (NBStats * 3), TAILLEFENY - TAILLEBARY };
+	SDL_Rect carre = { TAILLEMENUX, TAILLEBARY, TAILLEFENX - TAILLEMENUX - tailleStatsX, tailleStatsY };
 
 	SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
 	SDL_RenderFillRect(rendu, &carre);
 
-	SDL_Rect carre2 = { TAILLEFENX - (NBStats * 3), TAILLEBARY, TAILLEFENX - (NBStats * 3), TAILLEFENY - TAILLEBARY };
+	SDL_Rect carre2 = { TAILLEFENX - tailleStatsX, TAILLEBARY, TAILLEFENX - tailleStatsX, tailleStatsY };
 
 	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
 	SDL_RenderFillRect(rendu, &carre2);
