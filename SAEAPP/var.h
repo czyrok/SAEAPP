@@ -6,8 +6,8 @@ using namespace std;
 #include<SDL_ttf.h>
 
 const int tailleMaxBambousY = 480;
-const int maxNBBambous = 100;
-const int tailleBambousX = 8;
+const int maxNBBambous = 40;
+const int tailleBambousX = 15;
 
 const int taillePandaY = 20;
 const int maxNBPandas = 10;
@@ -50,7 +50,7 @@ struct jardins {
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
-const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + (NBStats * tailleBambousX);
+const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + (NBStats * 3);
 const int TAILLEFENY = tailleMaxBambousY + taillePandaY + TAILLEBARY;
 
 // prototype algo.cpp
@@ -95,3 +95,4 @@ void initPandas(
 );
 
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
+void actualiserAffichagePandas(jardins&, SDL_Renderer*);
