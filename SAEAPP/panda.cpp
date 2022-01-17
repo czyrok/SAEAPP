@@ -46,10 +46,6 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 	}
 }
 
-void actualiserAffichagePanda(jardins &jardin)
-{
-}
-
 void pandaCoupeBambou(jardins &jardin, int indPanda)
 {
 	jardin.bambous[jardin.pandas[indPanda].x].taillePousse = 0;
