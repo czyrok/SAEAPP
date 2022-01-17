@@ -64,6 +64,7 @@ void croissanceBambou(jardins&);
 
 // prototype stats.cpp
 void actualiserStats(jardins&);
+void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
 
 // prototype panda.cpp
 bool deplacementPanda(jardins&, int, int);
