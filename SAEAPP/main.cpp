@@ -65,7 +65,6 @@ int main(int argc, char* argv[])
 		switch (event.type) {
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				cout << "salut" << endl;
 				croissanceBambou(jardins[0]);
 				couperBambou(jardins[0]);
 
