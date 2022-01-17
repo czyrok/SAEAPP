@@ -5,12 +5,24 @@ using namespace std;
 
 #include "var.h"
 
+jardins jardins[2];
+int NBJardins = 0;
+
+Uint32 actualiser(Uint32 interval, void* rendu) {
+	croissanceBambou(jardins[0]);
+	couperBambou(jardins[0]);
+
+	afficherCarre((SDL_Renderer*)rendu);
+
+	actualiserAffichageBambous(jardins[0], (SDL_Renderer*)rendu);
+	actualiserAffichagePandas(jardins[0], (SDL_Renderer*)rendu);
+
+	return interval;
+}
+
 int main(int argc, char* argv[])
 {
-    jardins jardins[2];
-    int NBJardins = 0;
-
-	bambous bambous[15];
+	/*bambous bambous[15];
 	int NBBambous = 0;
 
 	for (int i = 0; i < 10; i++) {
@@ -35,9 +47,11 @@ int main(int argc, char* argv[])
 		pandas,
 		NBPandas,
 		-1,
-		"ReduceMax",
+		"ReduceFastest",
 		false
-	);
+	);*/
+
+	importerConfig(jardins, NBJardins);
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) return 1;
 
@@ -53,26 +67,29 @@ int main(int argc, char* argv[])
 
 	SDL_Renderer* rendu = SDL_CreateRenderer(fen, -1, SDL_RENDERER_ACCELERATED);
 
+	TTF_Init();
+	TTF_Font* police = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 25);
+
 	afficherMenu(rendu);
 	afficherBar(rendu);
 	afficherCarre(rendu);
 
+	SDL_Rect rectBoutonsBar[10];
+	char boutonsBar[10][NBMaxCaracBoutons] = { { "Mode" }, { "Lancer" }, { "Pause" } };
+	int NBButonsBar = 3;
+
+	afficherBoutonsBar(rendu, police, rectBoutonsBar, boutonsBar, NBButonsBar);
+
 	bool ouvert = true;
 	SDL_Event event;
+
+	SDL_TimerID timer;
 
 	while (ouvert) {
 		SDL_WaitEvent(&event);
 		switch (event.type) {
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				croissanceBambou(jardins[0]);
-				couperBambou(jardins[0]);
-
-				afficherCarre(rendu);
-
-				actualiserAffichageBambous(jardins[0], rendu);
-				actualiserAffichagePandas(jardins[0], rendu);
-
 				/*if (event.button.x > TAILLEX - TAILLE_PA) {
 					for (int i = 0; i < NB_COULEURS_PA; i++) {
 						if (
@@ -98,8 +115,11 @@ int main(int argc, char* argv[])
 			}
 			break;
 		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_n) {
-				//negatif(tabCouleur, rendu);
+			if (event.key.keysym.sym == SDLK_l) {
+				timer = SDL_AddTimer(250, actualiser, rendu);
+			}
+			else if (event.key.keysym.sym == SDLK_p) {
+				SDL_RemoveTimer(timer);
 			}
 			break;
 		case SDL_QUIT:
@@ -107,6 +127,9 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
+
+	TTF_CloseFont(police);
+	TTF_Quit();
 
 	SDL_DestroyRenderer(rendu);
 	SDL_DestroyWindow(fen);
