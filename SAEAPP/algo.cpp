@@ -9,7 +9,7 @@ void couperBambou(jardins& jardin) {
 		int indMax = 0;
 
 		for (int i = 0; i < jardin.NBBambous; i++) {
-			if (jardin.bambous[i].taillePousse > jardin.bambous[indMax].taillePousse) {
+			if (jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse > jardin.bambous[indMax].taillePousse * jardin.bambous[indMax].vitessePousse) {
 				indMax = i;
 			}
 		}
@@ -24,7 +24,7 @@ void couperBambou(jardins& jardin) {
 
 	}
 
-	actualiserStats(jardin);
+	//actualiserStats(jardin);
 }
 
 void croissanceBambou(jardins& jardin) {
