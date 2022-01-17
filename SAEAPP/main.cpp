@@ -19,8 +19,6 @@ int main(int argc, char* argv[])
 			NBBambous,
 			i + 1
 		);
-
-		bambous[NBBambous].taillePousse = 10;
 	}
 
 	pandas pandas[1];
@@ -68,7 +66,13 @@ int main(int argc, char* argv[])
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				cout << "salut" << endl;
+				croissanceBambou(jardins[0]);
+				couperBambou(jardins[0]);
+
+				afficherCarre(rendu);
+
 				actualiserAffichageBambous(jardins[0], rendu);
+				actualiserAffichagePandas(jardins[0], rendu);
 
 				/*if (event.button.x > TAILLEX - TAILLE_PA) {
 					for (int i = 0; i < NB_COULEURS_PA; i++) {
