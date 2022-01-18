@@ -60,7 +60,7 @@ void actualiserAffichageBambous(jardins& jardin, SDL_Renderer* rendu)
 
 	for (int i = 0; i < jardin.NBBambous; i++) {
 		for (int j = 0; j < jardin.bambous[i].taillePousse; j++) {
-			SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardin.bambous[i].vitessePousse * (float)7 * (j + 1))), tailleBambousX - 4, jardin.bambous[i].vitessePousse * 7 };
+			SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardin.bambous[i].vitessePousse * (float)10 * (j + 1))), tailleBambousX - 4, jardin.bambous[i].vitessePousse * 10 };
 
 			SDL_RenderFillRect(rendu, &carre);
 		}

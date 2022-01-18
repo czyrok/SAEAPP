@@ -49,7 +49,7 @@ void couperBambou(jardins& jardin) {
 		}
 	}
 
-	//actualiserStats(jardin);
+	actualiserStats(jardin);
 }
 
 void croissanceBambou(jardins& jardin) {

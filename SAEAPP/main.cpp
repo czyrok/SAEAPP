@@ -16,6 +16,7 @@ Uint32 actualiser(Uint32 interval, void* rendu) {
 
 	actualiserAffichageBambous(jardins[0], (SDL_Renderer*)rendu);
 	actualiserAffichagePandas(jardins[0], (SDL_Renderer*)rendu);
+	actualiserAffichageStatistiques(jardins[0], (SDL_Renderer*)rendu);
 
 	return interval;
 }
@@ -90,6 +91,7 @@ int main(int argc, char* argv[])
 		switch (event.type) {
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
+				cout << jardins[0].tailleMaxStat[0] << endl;
 				/*if (event.button.x > TAILLEX - TAILLE_PA) {
 					for (int i = 0; i < NB_COULEURS_PA; i++) {
 						if (

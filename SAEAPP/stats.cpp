@@ -6,22 +6,22 @@ using namespace std;
 void actualiserStats(jardins &jardin)
 {
 	float max = 0;
-	float min = jardin.bambous[0].taillePousse;
+	float min = jardin.bambous[0].taillePousse * jardin.bambous[0].vitessePousse;
 	float sommePousseBambous = 0;
 
 	for (int i = 0; i < jardin.NBBambous; i++)
 	{
-		if (jardin.bambous[i].taillePousse > max)
+		if (jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse > max)
 		{
-			max = jardin.bambous[i].taillePousse;
+			max = jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
 		}
 
-		if (jardin.bambous[i].taillePousse < min)
+		if (jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse < min)
 		{
-			min = jardin.bambous[i].taillePousse;
+			min = jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
 		}
 
-		sommePousseBambous += jardin.bambous[i].taillePousse;
+		sommePousseBambous += jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
 	}
 
 	if (jardin.indStat < NBStats)
