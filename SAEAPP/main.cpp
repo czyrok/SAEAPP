@@ -5,22 +5,6 @@ using namespace std;
 
 #include "var.h"
 
-jardins jardins[2];
-int NBJardins = 0;
-
-Uint32 actualiser(Uint32 interval, void* rendu) {
-	croissanceBambou(jardins[0]);
-	couperBambou(jardins[0]);
-
-	afficherCarre((SDL_Renderer*)rendu);
-
-	actualiserAffichageBambous(jardins[0], (SDL_Renderer*)rendu);
-	actualiserAffichagePandas(jardins[0], (SDL_Renderer*)rendu);
-	actualiserAffichageStatistiques(jardins[0], (SDL_Renderer*)rendu);
-
-	return interval;
-}
-
 int main(int argc, char* argv[])
 {
 	/*bambous bambous[15];
@@ -52,6 +36,12 @@ int main(int argc, char* argv[])
 		false
 	);*/
 
+	/* SDL_RenderDrawLine(rendu, carre.x - tailleFosse / 2, carre.y, carre.w + tailleFosse, 1); */
+
+	jardins jardins[2];
+	int NBJardins = 0;
+	int jardinActuel = 0;
+
 	importerConfig(jardins, NBJardins);
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) return 1;
@@ -75,53 +65,96 @@ int main(int argc, char* argv[])
 	afficherBar(rendu);
 	afficherCarre(rendu);
 
-	SDL_Rect rectBoutonsBar[10];
-	char boutonsBar[10][NBMaxCaracBoutons] = { { "Mode" }, { "Lancer" }, { "Pause" } };
-	int NBButonsBar = 3;
+	afficherLegende(rendu, police);
 
-	afficherBoutonsBar(rendu, police, rectBoutonsBar, boutonsBar, NBButonsBar);
+	SDL_Rect rectBoutonsBar[10];
+	char boutonsBar[10][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Mode manuel" } };
+	int NBBoutonsBar = 3;
+	afficherBoutonsBar(rendu, police, rectBoutonsBar, boutonsBar, NBBoutonsBar);
+
+	SDL_Rect rectBoutonsMenuHaut[10];
+	char boutonsMenuHaut[10][NBMaxCaracBoutons] = { { "Mode ReduceMax" }, { "Mode ReduceFastest" } };
+	int NBBoutonsMenuHaut = 2;
+	SDL_Rect rectBoutonsBas[10];
+	char boutonsMenuBas[10][NBMaxCaracBoutons] = { { "Exporter" }, { "Importer" } };
+	int NBBoutonsMenu = 2;
+	afficherBoutonsMenu(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, NBBoutonsMenuHaut, rectBoutonsBas, boutonsMenuBas, NBBoutonsMenu);
 
 	bool ouvert = true;
 	SDL_Event event;
 
-	SDL_TimerID timer;
+	paramsPourTimer paramsTimer;
+
+	paramsTimer.rendu = rendu;
+	paramsTimer.police = police;
+	paramsTimer.jardins = jardins;
+	paramsTimer.jardinActuel = &jardinActuel;
+
+	SDL_TimerID timer = SDL_AddTimer(100, actualiser, &paramsTimer);
+	SDL_RemoveTimer(timer);
 
 	while (ouvert) {
 		SDL_WaitEvent(&event);
 		switch (event.type) {
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				cout << jardins[0].tailleMaxStat[0] << endl;
-				/*if (event.button.x > TAILLEX - TAILLE_PA) {
-					for (int i = 0; i < NB_COULEURS_PA; i++) {
-						if (
-							event.button.x > positionRectPalette[i].x
-							&& event.button.x < positionRectPalette[i].x + positionRectPalette[i].w
-							&& event.button.y > positionRectPalette[i].y
-							&& event.button.y < positionRectPalette[i].y + positionRectPalette[i].h
-							) {
-							SDL_SetRenderDrawColor(rendu, CODE_COULEURS_PA[i].r, CODE_COULEURS_PA[i].g, CODE_COULEURS_PA[i].b, 255);
-							break;
+				for (int i = 0; i < NBBoutonsBar; i++) {
+					if (
+						event.button.x > rectBoutonsBar[i].x
+						&& event.button.x < rectBoutonsBar[i].x + rectBoutonsBar[i].w
+						&& event.button.y > rectBoutonsBar[i].y
+						&& event.button.y < rectBoutonsBar[i].y + rectBoutonsBar[i].h
+						) {
+						
+						if (strcmp(boutonsBar[i], "Lancer") == 0) {
+							lancer(timer, paramsTimer, jardins, jardinActuel);
 						}
-					}
+						else if (strcmp(boutonsBar[i], "Pause") == 0) {
+							pause(timer);
+						}
+						else if (strcmp(boutonsBar[i], "Mode manuel") == 0) {
+							modeManuel(timer, jardins, jardinActuel);
+						}
 
-					if (event.button.x < TAILLEX - TAILLE_PA + TAILLE_BOUTON[0] && event.button.y > TAILLEY - TAILLE_BOUTON[1]) {
-						sauvegarder_dessin(rendu);
+						break;
 					}
 				}
-				else {
-					dessiner_pixel(event.button.y / CARRE, event.button.x / CARRE, rendu, tabCouleur);
 
-					SDL_RenderPresent(rendu);
-				}*/
+				for (int i = 0; i < NBBoutonsMenuHaut; i++) {
+					if (
+						event.button.x > rectBoutonsMenuHaut[i].x
+						&& event.button.x < rectBoutonsMenuHaut[i].x + rectBoutonsMenuHaut[i].w
+						&& event.button.y > rectBoutonsMenuHaut[i].y
+						&& event.button.y < rectBoutonsMenuHaut[i].y + rectBoutonsMenuHaut[i].h
+						) {
+
+						if (strcmp(boutonsMenuHaut[i], "Mode ReduceFastest") == 0) {
+							SDL_StartTextInput();
+						}
+
+						break;
+					}
+				}
 			}
+			break;
+		case SDL_TEXTINPUT:
+			cout << event.text.text << endl;
 			break;
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_l) {
-				timer = SDL_AddTimer(250, actualiser, rendu);
+				lancer(timer, paramsTimer, jardins, jardinActuel);
 			}
 			else if (event.key.keysym.sym == SDLK_p) {
-				SDL_RemoveTimer(timer);
+				pause(timer);
+			}
+			else if (event.key.keysym.sym == SDLK_m) {
+				modeManuel(timer, jardins, jardinActuel);
+				/*if (strcmp(jardins[jardinActuel].nomAlgo, "ReduceMax") == 0) {
+					strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceFastest");
+				}
+				else if (strcmp(jardins[jardinActuel].nomAlgo, "ReduceFastest") == 0) {
+					strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceMax");
+				}*/
 			}
 			break;
 		case SDL_QUIT:
