@@ -28,7 +28,7 @@ void afficherCarre(SDL_Renderer* rendu) {
 	SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
 	SDL_RenderFillRect(rendu, &carre);
 
-	SDL_Rect carre2 = { TAILLEFENX - tailleStatsX, TAILLEBARY, TAILLEFENX - tailleStatsX, tailleStatsY };
+	SDL_Rect carre2 = { TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX, TAILLEBARY, tailleStatsX, tailleStatsY };
 
 	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
 	SDL_RenderFillRect(rendu, &carre2);
@@ -201,7 +201,7 @@ void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 	SDL_Color bleu = { 0,0,255 };
 
 	SDL_Rect positionTexterouge;
-	positionTexterouge.x = TAILLEFENX - tailleStatsX + (tailleStatsX) / 2 - ((tailleStatsX) / 2)/2;
+	positionTexterouge.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 2)/2;
 	positionTexterouge.y = 50;
 	SDL_Texture* texture1 = loadText(rendu, "Max", rouge, font);
 	SDL_QueryTexture(texture1, NULL, NULL, &positionTexterouge.w, &positionTexterouge.h);
@@ -213,7 +213,7 @@ void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 
 
 	SDL_Rect positionTextemarron;
-	positionTextemarron.x = TAILLEFENX - tailleStatsX + (tailleStatsX)/2;
+	positionTextemarron.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX)/2;
 	positionTextemarron.y = 50;
 	SDL_Texture* texture2 = loadText(rendu, "Min", marron, font);
 	SDL_QueryTexture(texture2, NULL, NULL, &positionTextemarron.w, &positionTextemarron.h);
@@ -224,7 +224,7 @@ void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 
 
 	SDL_Rect positionTextebleu;
-	positionTextebleu.x = TAILLEFENX - tailleStatsX + (tailleStatsX) / 2 + ((tailleStatsX) / 2) / 2;
+	positionTextebleu.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 2) / 2;
 	positionTextebleu.y = 50;
 	SDL_Texture* texture3 = loadText(rendu, "Moyenne", bleu, font);
 	SDL_QueryTexture(texture3, NULL, NULL, &positionTextebleu.w, &positionTextebleu.h);
@@ -234,30 +234,46 @@ void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 	SDL_DestroyTexture(texture3);
 }
 
-void afficherStatBambous(SDL_Renderer* rendu, jardins& jardin)
+void afficherStatNBCoupes(SDL_Renderer* rendu, jardins& jardin)
 {
+	SDL_Rect carre = { TAILLEFENX - tailleNBCoupesStatX, TAILLEBARY, tailleNBCoupesStatX, TAILLEFENY - TAILLEBARY };
+
+	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
+	SDL_RenderFillRect(rendu, &carre);
+
 	SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
 	SDL_Rect statbambous;
-	statbambous.x = TAILLEFENX - 10;
+
+	statbambous.x = TAILLEFENX - tailleNBCoupesStatX;
 	statbambous.y = TAILLEFENY - jardin.NBCoupesStat * 10;
-	statbambous.w = 10;
+	statbambous.w = tailleNBCoupesStatX;
 	statbambous.h = jardin.NBCoupesStat * 10;
+
 	SDL_RenderFillRect(rendu, &statbambous);
 	SDL_RenderPresent(rendu);
 }
 
 void afficherEchelle(SDL_Renderer* rendu) 
 {
+	SDL_Rect carre = { TAILLEFENX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEBARY, tailleEchelleStatsX, TAILLEFENY - TAILLEBARY };
+
+	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
+	SDL_RenderFillRect(rendu, &carre);
+
 	SDL_SetRenderDrawColor(rendu, 0, 59, 6, 255);
 	SDL_Rect echelle;
-	echelle.x = TAILLEFENX - 30;
-	echelle.y = 0;
-	echelle.w = 5;
-	echelle.h = TAILLEFENY;
+
+	echelle.x = TAILLEFENX - tailleNBCoupesStatX - tailleEchelleStatsX + tailleEchelleStatsX / 4;
+	echelle.y = TAILLEBARY;
+	echelle.w = tailleEchelleStatsX / 2;
+	echelle.h = tailleEchelleStatsY;
+
 	SDL_RenderFillRect(rendu, &echelle);
 	SDL_RenderPresent(rendu);
-	for (int i = 0; i < TAILLEFENY; i += 10) {
-		SDL_RenderDrawLine(rendu, echelle.x-2,TAILLEFENY-i, echelle.x + 2, TAILLEFENY - i);
+
+	for (int i = 10; i < tailleEchelleStatsY; i += 10) {
+		SDL_RenderDrawLine(rendu, echelle.x - tailleEchelleStatsX / 4, TAILLEFENY - i, echelle.x + echelle.w + tailleEchelleStatsX / 4, TAILLEFENY - i);
 	}
+
 	SDL_RenderPresent(rendu);
 }
