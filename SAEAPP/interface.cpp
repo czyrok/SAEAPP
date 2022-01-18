@@ -48,28 +48,47 @@ void afficherIMGBoutonBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBo
 	afficherTexteBoutonBar(rendu, police, rectBoutonsBar, boutonsBar, indBouton, departX + 30);
 }
 
-void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int NBBoutonsMenu) {
-	int positionY = 0;
-
-	for (int i = 0; i < NBBoutonsMenu; i++) {
+void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenuHaut[], char boutonsMenuHaut[][NBMaxCaracBoutons], int NBBoutonsMenuHaut, SDL_Rect rectBoutonsMenuBas[], char boutonsMenuBas[][NBMaxCaracBoutons], int NBBoutonsMenuBas) {
+	for (int i = 0; i < NBBoutonsMenuHaut; i++) {
 		if (i == 0) {
-			afficherBoutonsMenu(rendu, police, rectBoutonsMenu, boutonsMenu, i, TAILLEBARY);
+			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, i, TAILLEBARY);
 		}
 		else {
-			afficherBoutonsMenu(rendu, police, rectBoutonsMenu, boutonsMenu, i, rectBoutonsMenu[i - 1].y + rectBoutonsMenu[i - 1].h);
+			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, i, rectBoutonsMenuHaut[i - 1].y + rectBoutonsMenuHaut[i - 1].h);
+		}
+	}
+
+	for (int i = 0; i < NBBoutonsMenuBas; i++) {
+		if (i == 0) {
+			afficherBoutonsMenuBas(rendu, police, rectBoutonsMenuBas, boutonsMenuBas, i, 10);
+		}
+		else {
+			afficherBoutonsMenuBas(rendu, police, rectBoutonsMenuBas, boutonsMenuBas, i, rectBoutonsMenuBas[i - 1].h + 10 * (i + 1));
 		}
 	}
 
 	SDL_RenderPresent(rendu);
 }
 
-void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int indBouton, int departY) {
+void afficherBoutonsMenuHaut(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int indBouton, int departY) {
 	SDL_Texture* texture = loadText(rendu, boutonsMenu[indBouton], { 255, 255, 255 }, police);
 
 	int positionTexteW, positionTexteH;
 	SDL_QueryTexture(texture, NULL, NULL, &positionTexteW, &positionTexteH);
 
 	SDL_Rect positionTexte = { TAILLEMENUX / 2 - positionTexteW / 2, departY + 10, positionTexteW, positionTexteH };
+	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+
+	rectBoutonsMenu[indBouton] = positionTexte;
+}
+
+void afficherBoutonsMenuBas(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int indBouton, int departY) {
+	SDL_Texture* texture = loadText(rendu, boutonsMenu[indBouton], { 255, 255, 255 }, police);
+
+	int positionTexteW, positionTexteH;
+	SDL_QueryTexture(texture, NULL, NULL, &positionTexteW, &positionTexteH);
+
+	SDL_Rect positionTexte = { TAILLEMENUX / 2 - positionTexteW / 2, TAILLEFENY - positionTexteH - departY, positionTexteW, positionTexteH };
 	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
 	rectBoutonsMenu[indBouton] = positionTexte;
