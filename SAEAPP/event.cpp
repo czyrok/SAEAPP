@@ -16,6 +16,7 @@ Uint32 actualiser(Uint32 interval, void* params) {
 	actualiserAffichageStatistiques(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
 
 	afficherLegende(paramsTimer->rendu, paramsTimer->police);
+	afficherStatNBCoupes(paramsTimer->rendu, paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
 
 	return interval;
 }
