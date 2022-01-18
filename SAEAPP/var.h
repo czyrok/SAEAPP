@@ -57,7 +57,7 @@ struct jardins {
 
 	bool manuelActive;
 
-	float paramPourReduceFastest = 1.45;
+	float paramPourReduceFastest;
 };
 
 struct paramsPourTimer {
@@ -105,7 +105,8 @@ void initJardin(
 	int,
 	int,
 	const char[],
-	bool
+	bool,
+	float
 );
 
 void initBambous(
@@ -132,6 +133,7 @@ void afficherBoutonsMenuHaut(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxC
 void afficherBoutonsMenuBas(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 
 void importerConfig(jardins[], int&);
+void exporterConfig(jardins);
 
 Uint32 actualiser(Uint32, void*);
 void lancer(SDL_TimerID&, paramsPourTimer&, jardins[], int);

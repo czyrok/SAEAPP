@@ -22,6 +22,7 @@ Uint32 actualiser(Uint32 interval, void* params) {
 }
 
 void lancer(SDL_TimerID& timer, paramsPourTimer& paramsTimer, jardins jardins[], int jardinActuel) {
+	SDL_RemoveTimer(timer);
 	jardins[jardinActuel].manuelActive = false;
 	timer = SDL_AddTimer(100, actualiser, &paramsTimer);
 }
