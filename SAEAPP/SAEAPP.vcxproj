@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algo.cpp" />
+    <ClCompile Include="event.cpp" />
     <ClCompile Include="exterieur.cpp" />
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="config.cpp" />
