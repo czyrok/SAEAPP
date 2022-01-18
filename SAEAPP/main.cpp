@@ -66,6 +66,8 @@ int main(int argc, char* argv[])
 	afficherCarre(rendu);
 
 	afficherLegende(rendu, police);
+	afficherStatNBCoupes(rendu, jardins[jardinActuel]);
+	afficherEchelle(rendu);
 
 	SDL_Rect rectBoutonsBar[10];
 	char boutonsBar[10][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Mode manuel" } };

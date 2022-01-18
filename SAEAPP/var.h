@@ -20,6 +20,12 @@ const int NBStats = 100;
 const int tailleStatX = 6;
 const int tailleStatsX = NBStats * tailleStatX;
 
+const int tailleEchelleStatsX = 10;
+const int tailleEchelleStatsY = tailleStatsY;
+
+const int tailleNBCoupesStatX = 10;
+const int tailleNBCoupesStatY = tailleStatsY;
+
 struct bambous {
 	int taillePousse;
 	float vitessePousse;
@@ -64,7 +70,7 @@ struct paramsPourTimer {
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
-const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + tailleStatsX;
+const int TAILLEFENX = (maxNBBambous * tailleBambousX) + TAILLEMENUX + tailleStatsX + tailleEchelleStatsX + tailleNBCoupesStatX;
 const int TAILLEFENY = tailleStatsY + TAILLEBARY;
 
 const int NBMaxCaracBoutons = 50;
@@ -86,6 +92,8 @@ void afficherMenu(SDL_Renderer*);
 void afficherBar(SDL_Renderer*);
 void afficherCarre(SDL_Renderer*);
 void afficherLegende(SDL_Renderer*, TTF_Font*);
+void afficherStatNBCoupes(SDL_Renderer*, jardins&);
+void afficherEchelle(SDL_Renderer*);
 
 void initJardin(
 	jardins[],
