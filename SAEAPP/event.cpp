@@ -13,7 +13,7 @@ Uint32 actualiser(Uint32 interval, void* params) {
 
 	actualiserAffichageBambous(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
 	actualiserAffichagePandas(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
-	actualiserAffichageStatistiques(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
+	actualiserAffichageStatistiques2(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
 
 	afficherLegende(paramsTimer->rendu, paramsTimer->police);
 	afficherStatNBCoupes(paramsTimer->rendu, paramsTimer->jardins[*(paramsTimer->jardinActuel)]);

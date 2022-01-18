@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 
 								actualiserAffichageBambous(jardins[jardinActuel], rendu);
 								actualiserAffichagePandas(jardins[jardinActuel], rendu);
-								actualiserAffichageStatistiques(jardins[jardinActuel], rendu);
+								actualiserAffichageStatistiques2(jardins[jardinActuel], rendu);
 
 								afficherLegende(rendu, police);
 								afficherStatNBCoupes(rendu, jardins[jardinActuel]);
