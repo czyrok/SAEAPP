@@ -269,12 +269,12 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		int pointX = tailleStatX * (i + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
 		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
 
-		int ligneX = tailleStatX * ((i - 1)(NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
+		int ligneX = tailleStatX * ((i - 1) + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
 		int ligneY = TAILLEFENY - hauteurX;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 		SDL_Rect pointMax = {pointX, pointY - jardin.tailleMaxStat[i], taille, taille};
-		SDL_RenderFillRect(rendu, &pointmax);
+		SDL_RenderFillRect(rendu, &pointMax);
 
 		SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
 		SDL_Rect pointMin = {pointX, pointY - jardin.tailleMinStat[i], taille, taille};
