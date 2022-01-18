@@ -3,7 +3,7 @@ using namespace std;
 
 #include "var.h"
 
-void actualiserStats(jardins &jardin)
+void actualiserStats(jardins& jardin)
 {
 	float max = 0;
 	float min = jardin.bambous[0].taillePousse * jardin.bambous[0].vitessePousse;
@@ -11,17 +11,17 @@ void actualiserStats(jardins &jardin)
 
 	for (int i = 0; i < jardin.NBBambous; i++)
 	{
-		if (jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse > max)
+		if (jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse > max)
 		{
-			max = jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
+			max = jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse;
 		}
 
-		if (jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse < min)
+		if (jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse < min)
 		{
-			min = jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
+			min = jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse;
 		}
 
-		sommePousseBambous += jardin.bambous[i].taillePousse * jardin.bambous[0].vitessePousse;
+		sommePousseBambous += jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse;
 	}
 
 	if (jardin.indStat < NBStats)

@@ -77,10 +77,10 @@ int main(int argc, char* argv[])
 	SDL_Rect rectBoutonsMenuHaut[10];
 	char boutonsMenuHaut[10][NBMaxCaracBoutons] = { { "Mode ReduceMax" }, { "Mode ReduceFastest" } };
 	int NBBoutonsMenuHaut = 2;
-	SDL_Rect rectBoutonsBas[10];
+	SDL_Rect rectBoutonsMenuBas[10];
 	char boutonsMenuBas[10][NBMaxCaracBoutons] = { { "Exporter" }, { "Importer" } };
-	int NBBoutonsMenu = 2;
-	afficherBoutonsMenu(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, NBBoutonsMenuHaut, rectBoutonsBas, boutonsMenuBas, NBBoutonsMenu);
+	int NBBoutonsMenuBas = 2;
+	afficherBoutonsMenu(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, NBBoutonsMenuHaut, rectBoutonsMenuBas, boutonsMenuBas, NBBoutonsMenuBas);
 
 	bool ouvert = true;
 	SDL_Event event;
@@ -122,6 +122,7 @@ int main(int argc, char* argv[])
 					}
 				}
 
+
 				for (int i = 0; i < NBBoutonsMenuHaut; i++) {
 					if (
 						event.button.x > rectBoutonsMenuHaut[i].x
@@ -131,7 +132,34 @@ int main(int argc, char* argv[])
 						) {
 
 						if (strcmp(boutonsMenuHaut[i], "Mode ReduceFastest") == 0) {
+							strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceMax");
+						}
+						else if (strcmp(boutonsMenuHaut[i], "Mode ReduceMax") == 0) {
+							strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceFastest");
+						}
+
+						/*if (strcmp(boutonsMenuHaut[i], "Mode ReduceFastest") == 0) {
 							SDL_StartTextInput();
+						}*/
+
+						break;
+					}
+				}
+
+				for (int i = 0; i < NBBoutonsMenuBas; i++) {
+					if (
+						event.button.x > rectBoutonsMenuBas[i].x
+						&& event.button.x < rectBoutonsMenuBas[i].x + rectBoutonsMenuBas[i].w
+						&& event.button.y > rectBoutonsMenuBas[i].y
+						&& event.button.y < rectBoutonsMenuBas[i].y + rectBoutonsMenuBas[i].h
+						) {
+
+						if (strcmp(boutonsMenuBas[i], "Importer") == 0) {
+							pause(timer);
+							importerConfig(jardins, jardinActuel);
+						}
+						else if (strcmp(boutonsMenuBas[i], "Exporter") == 0) {
+							//exporterConfig(jardins[jardinActuel]);
 						}
 
 						break;
