@@ -233,3 +233,31 @@ void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 	SDL_RenderPresent(rendu);
 	SDL_DestroyTexture(texture3);
 }
+
+void afficherStatBambous(SDL_Renderer* rendu, jardins& jardin)
+{
+	SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+	SDL_Rect statbambous;
+	statbambous.x = TAILLEFENX - 10;
+	statbambous.y = TAILLEFENY - jardin.NBCoupesStat * 10;
+	statbambous.w = 10;
+	statbambous.h = jardin.NBCoupesStat * 10;
+	SDL_RenderFillRect(rendu, &statbambous);
+	SDL_RenderPresent(rendu);
+}
+
+void afficherEchelle(SDL_Renderer* rendu) 
+{
+	SDL_SetRenderDrawColor(rendu, 0, 59, 6, 255);
+	SDL_Rect echelle;
+	echelle.x = TAILLEFENX - 30;
+	echelle.y = 0;
+	echelle.w = 5;
+	echelle.h = TAILLEFENY;
+	SDL_RenderFillRect(rendu, &echelle);
+	SDL_RenderPresent(rendu);
+	for (int i = 0; i < TAILLEFENY; i += 10) {
+		SDL_RenderDrawLine(rendu, echelle.x-2,TAILLEFENY-i, echelle.x + 2, TAILLEFENY - i);
+	}
+	SDL_RenderPresent(rendu);
+}
