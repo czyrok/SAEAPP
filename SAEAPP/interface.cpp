@@ -4,7 +4,6 @@ using namespace std;
 #include <cstring>
 
 #include "var.h"
-#include "exterieur.cpp"
 
 void afficherBoutonsBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsBar[], char boutonsBar[][NBMaxCaracBoutons], int NBBoutonsBar) {
 	for (int i = 0; i < NBBoutonsBar; i++) {
@@ -54,7 +53,7 @@ void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBou
 
 	for (int i = 0; i < NBBoutonsMenu; i++) {
 		if (i == 0) {
-			afficherBoutonsMenu(rendu, police, rectBoutonsMenu, boutonsMenu, i, 0);
+			afficherBoutonsMenu(rendu, police, rectBoutonsMenu, boutonsMenu, i, TAILLEBARY);
 		}
 		else {
 			afficherBoutonsMenu(rendu, police, rectBoutonsMenu, boutonsMenu, i, rectBoutonsMenu[i - 1].y + rectBoutonsMenu[i - 1].h);
@@ -70,7 +69,7 @@ void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBou
 	int positionTexteW, positionTexteH;
 	SDL_QueryTexture(texture, NULL, NULL, &positionTexteW, &positionTexteH);
 
-	SDL_Rect positionTexte = { TAILLEMENUX / 2, TAILLEMENUX / 2 + departY, positionTexteW, positionTexteH };
+	SDL_Rect positionTexte = { TAILLEMENUX / 2 - positionTexteW / 2, departY + 10, positionTexteW, positionTexteH };
 	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
 	rectBoutonsMenu[indBouton] = positionTexte;
