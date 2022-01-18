@@ -72,30 +72,28 @@ void importerConfig(jardins jardins[], int& NBJardins) {
     }
 }
 
+void exporterConfig(jardins jardin) {
+    ofstream config("config.txt", ios::out);
 
-void exporterConfig(jardins jardins[], int& NBJardins,bambous bambous[],int& NBBambous,pandas pandas[],int& NBPandas) {
-    ofstream exp(".html", ios::out);
-    exp << "j," << jardins[0].nom << ',' << jardins[0].pandaDeplacementLimite << ',' << jardins[0].nomAlgo << ',' << jardins[0].manuelActive << '\n';
+    config << "j," << jardin.pandaDeplacementLimite << ',' << jardin.nomAlgo << ',' << jardin.manuelActive << endl;
 
-    for (int i = 0; i < NBPandas; i++) {
-        if (i == NBPandas - 1) {
-            exp << "p," << pandas[0].x;
+    for (int i = 0; i < jardin.NBPandas; i++) {
+        if (i == jardin.NBPandas - 1 && i != 0) {
+            config << "p";
         }
         else {
-            exp << "p," << pandas[0].x << '\n';
+            config << "p" << endl;
         }
-
     }
 
-    for (int i = 0; i < NBBambous; i++) {
-        if (i == NBBambous - 1) {
-            exp << "b," << bambous[0].vitessePousse ;
+    for (int i = 0; i < jardin.NBBambous; i++) {
+        if (i == jardin.NBBambous - 1 && i != 0) {
+            config << "b," << jardin.bambous[i].vitessePousse;
         }
         else {
-            exp << "b," << bambous[0].vitessePousse << '\n';
+            config << "b," << jardin.bambous[i].vitessePousse << endl;
         }
-
     }
 
-    exp.close(); 
+    config.close();
 }
