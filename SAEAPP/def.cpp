@@ -7,7 +7,7 @@ using namespace std;
 
 void initJardin(
     jardins jardins[],
-    int& NBJardins,
+    int& jardinActuel,
     const char nomJardin[],
     bambous bambous[],
     int NBBambous,
@@ -15,40 +15,41 @@ void initJardin(
     int NBPandas,
     int pandaDeplacementLimite,
     const char nomAlgo[],
-    bool manuelActive)
+    bool manuelActive,
+    float paramPourReduceFastest)
 {
-    strcpy_s(jardins[NBJardins].nom, nomJardin);
+    strcpy_s(jardins[jardinActuel].nom, nomJardin);
 
     for (int i = 0; i < NBBambous; i++) {
-        jardins[NBJardins].bambous[i] = bambous[i];
+        jardins[jardinActuel].bambous[i] = bambous[i];
     }
 
-    jardins[NBJardins].NBBambous = NBBambous;
+    jardins[jardinActuel].NBBambous = NBBambous;
 
-   jardins[NBJardins].NBCoupesStat = 0;
+   jardins[jardinActuel].NBCoupesStat = 0;
    
-   strcpy_s(jardins[NBJardins].nomAlgo, nomAlgo);
+   strcpy_s(jardins[jardinActuel].nomAlgo, nomAlgo);
    
    for (int i = 0; i < NBPandas; i++) {
-       jardins[NBJardins].pandas[i] = pandas[i];
+       jardins[jardinActuel].pandas[i] = pandas[i];
    }
 
-   jardins[NBJardins].NBPandas = NBPandas;
+   jardins[jardinActuel].NBPandas = NBPandas;
 
    for (int i = 0; i < NBStats; i++) {
-       jardins[NBJardins].tailleMaxStat[i] = 0;
-       jardins[NBJardins].tailleMinStat[i] = 0;
-       jardins[NBJardins].tailleMoyStat[i] = 0;
+       jardins[jardinActuel].tailleMaxStat[i] = 0;
+       jardins[jardinActuel].tailleMinStat[i] = 0;
+       jardins[jardinActuel].tailleMoyStat[i] = 0;
    }
 
-   jardins[NBJardins].pandaDeplacementLimite = pandaDeplacementLimite;
+   jardins[jardinActuel].pandaDeplacementLimite = pandaDeplacementLimite;
 
-   jardins[NBJardins].manuelActive = manuelActive;
+   jardins[jardinActuel].manuelActive = manuelActive;
 
-   jardins[NBJardins].indStat = 0;
-   jardins[NBJardins].NBCoupesStat = 0;
+   jardins[jardinActuel].indStat = 0;
+   jardins[jardinActuel].NBCoupesStat = 0;
 
-   NBJardins++;
+   jardins[jardinActuel].paramPourReduceFastest = paramPourReduceFastest;
 }
 
 void initBambous(

@@ -48,7 +48,7 @@ void importerConfig(jardins jardins[], int& NBJardins) {
         }
 
         int tailleLigneJardin = strlen(ligneJardin);
-        char paramsJardin[4][50];
+        char paramsJardin[5][50];
         int indCaracLigneJardin = 0;
         int NBVirgulesLigneJardin = 0;
 
@@ -66,7 +66,7 @@ void importerConfig(jardins jardins[], int& NBJardins) {
             }
         }
 
-        initJardin(jardins, NBJardins, paramsJardin[0], bambous, NBBambous, pandas, NBPandas, atoi(paramsJardin[1]), paramsJardin[2], atoi(paramsJardin[3]));
+        initJardin(jardins, NBJardins, paramsJardin[0], bambous, NBBambous, pandas, NBPandas, atoi(paramsJardin[1]), paramsJardin[2], atoi(paramsJardin[3]), atof(paramsJardin[4]));
         
         config.close();
     }

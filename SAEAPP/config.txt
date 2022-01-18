@@ -1,4 +1,4 @@
-j,tr,3,ReduceFastest,0
+j,tr,-1,ReduceFastest,0,0.5
 p
 b,2
 b,3

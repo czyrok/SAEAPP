@@ -7,42 +7,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	/*bambous bambous[15];
-	int NBBambous = 0;
-
-	for (int i = 0; i < 10; i++) {
-		initBambous(
-			bambous,
-			NBBambous,
-			i + 1
-		);
-	}
-
-	pandas pandas[1];
-	int NBPandas = 0;
-
-	initPandas(pandas, NBPandas, 0);
-
-	initJardin(
-		jardins,
-		NBJardins,
-		"cc",
-		bambous,
-		NBBambous,
-		pandas,
-		NBPandas,
-		-1,
-		"ReduceFastest",
-		false
-	);*/
-
-	/* SDL_RenderDrawLine(rendu, carre.x - tailleFosse / 2, carre.y, carre.w + tailleFosse, 1); */
-
 	jardins jardins[2];
-	int NBJardins = 0;
 	int jardinActuel = 0;
 
-	importerConfig(jardins, NBJardins);
+	importerConfig(jardins, jardinActuel);
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) return 1;
 
@@ -122,7 +90,6 @@ int main(int argc, char* argv[])
 					}
 				}
 
-
 				for (int i = 0; i < NBBoutonsMenuHaut; i++) {
 					if (
 						event.button.x > rectBoutonsMenuHaut[i].x
@@ -159,7 +126,7 @@ int main(int argc, char* argv[])
 							importerConfig(jardins, jardinActuel);
 						}
 						else if (strcmp(boutonsMenuBas[i], "Exporter") == 0) {
-							//exporterConfig(jardins[jardinActuel]);
+							exporterConfig(jardins[jardinActuel]);
 						}
 
 						break;
