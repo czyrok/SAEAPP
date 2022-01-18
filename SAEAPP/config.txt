@@ -1,4 +1,4 @@
-j,truc,3,ReduceMax,0
+j,truc,3,ReduceFastest,0
 b,2
 b,3
 b,5

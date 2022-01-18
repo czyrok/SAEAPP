@@ -73,6 +73,7 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 {
 	int x = jardin.indStat;
 	int i;
+	int hauteur = 50;
 	float taillemax = jardin.tailleMaxStat[jardin.indStat];
 	float taillemin = jardin.tailleMinStat[jardin.indStat];
 	float taillemoy = jardin.tailleMoyStat[jardin.indStat];
@@ -82,46 +83,120 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //max rouge
 
 			SDL_Rect pointmax;
-			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
-			pointmax.y = TAILLEFENY - jardin.tailleMaxStat[i];
+			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX - 1;
+			pointmax.y = TAILLEFENY - jardin.tailleMaxStat[i] - 1 - hauteur;
 			pointmax.w = 3;
 			pointmax.h = 3;
 			SDL_RenderFillRect(rendu, &pointmax);
 
-			if (jardin.indStat > 0) {
-				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMaxStat[i - 1], pointmax.x,pointmax.y);
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMaxStat[i - 1] - hauteur, pointmax.x + 1,pointmax.y + 1);
 			}
 
-			SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255); //min vert
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255); //min marron
 			SDL_Rect pointmin;
-			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
-			pointmax.y = TAILLEFENY - jardin.tailleMinStat[i];
-			pointmax.w = 3;
-			pointmax.h = 3;
+			pointmin.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmin.y = TAILLEFENY - jardin.tailleMinStat[i] - hauteur;
+			pointmin.w = 3;
+			pointmin.h = 3;
 			SDL_RenderFillRect(rendu, &pointmin);
 
-			if (jardin.indStat > 0) {
-				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMinStat[i - 1], pointmax.x, pointmax.y);
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMinStat[i - 1] - hauteur, pointmin.x + 1, pointmin.y + 1);
 			}
 			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //moyenne bleu
 			SDL_Rect pointmoy;
-			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
-			pointmax.y = TAILLEFENY - jardin.tailleMoyStat[i];
-			pointmax.w = 3;
-			pointmax.h = 3;
+			pointmoy.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmoy.y = TAILLEFENY - jardin.tailleMoyStat[i] - hauteur;
+			pointmoy.w = 3;
+			pointmoy.h = 3;
 			SDL_RenderFillRect(rendu, &pointmoy);
 
-			if (jardin.indStat > 0) {
-				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMoyStat[i - 1], pointmax.x, pointmax.y);
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMoyStat[i - 1] - hauteur, pointmoy.x + 1, pointmoy.y + 1);
 			}
 		}
 	}
 	else {
-		for (i = jardin.indStat % 100; i < 100; i++) {
+		for (i = jardin.indStat % NBStats; i < NBStats; i++) {
+			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //max rouge
+
+			SDL_Rect pointmax;
+			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX - 1;
+			pointmax.y = TAILLEFENY - jardin.tailleMaxStat[i] - 1 - hauteur;
+			pointmax.w = 3;
+			pointmax.h = 3;
+			SDL_RenderFillRect(rendu, &pointmax);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMaxStat[i - 1] - hauteur, pointmax.x + 1, pointmax.y + 1);
+			}
+
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255); //min marron
+			SDL_Rect pointmin;
+			pointmin.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmin.y = TAILLEFENY - jardin.tailleMinStat[i] - hauteur;
+			pointmin.w = 3;
+			pointmin.h = 3;
+			SDL_RenderFillRect(rendu, &pointmin);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMinStat[i - 1] - hauteur, pointmin.x + 1, pointmin.y + 1);
+			}
+			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //moyenne bleu
+			SDL_Rect pointmoy;
+			pointmoy.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmoy.y = TAILLEFENY - jardin.tailleMoyStat[i] - hauteur;
+			pointmoy.w = 3;
+			pointmoy.h = 3;
+			SDL_RenderFillRect(rendu, &pointmoy);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMoyStat[i - 1] - hauteur, pointmoy.x + 1, pointmoy.y + 1);
+			}
 		}
-		for (i = 0; i < jardin.indStat % 100; i++) {
+		for (i = 0; i < jardin.indStat % NBStats; i++) {
+			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255); //max rouge
+
+			SDL_Rect pointmax;
+			pointmax.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX - 1;
+			pointmax.y = TAILLEFENY - jardin.tailleMaxStat[i] - 1 - hauteur;
+			pointmax.w = 3;
+			pointmax.h = 3;
+			SDL_RenderFillRect(rendu, &pointmax);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMaxStat[i - 1] - hauteur, pointmax.x + 1, pointmax.y + 1);
+			}
+
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255); //min marron
+			SDL_Rect pointmin;
+			pointmin.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmin.y = TAILLEFENY - jardin.tailleMinStat[i] - hauteur;
+			pointmin.w = 3;
+			pointmin.h = 3;
+			SDL_RenderFillRect(rendu, &pointmin);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMinStat[i - 1] - hauteur, pointmin.x + 1, pointmin.y + 1);
+			}
+			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //moyenne bleu
+			SDL_Rect pointmoy;
+			pointmoy.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX;
+			pointmoy.y = TAILLEFENY - jardin.tailleMoyStat[i] - hauteur;
+			pointmoy.w = 3;
+			pointmoy.h = 3;
+			SDL_RenderFillRect(rendu, &pointmoy);
+
+			if (i > 0) {
+				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX, TAILLEFENY - jardin.tailleMoyStat[i - 1] - hauteur, pointmoy.x + 1, pointmoy.y + 1);
+			}
 		}
 	}
+
+	SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+
+	SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (jardin.indStat % NBStats) * tailleStatX, TAILLEBARY, (TAILLEFENX - tailleStatsX) + (jardin.indStat % NBStats) * tailleStatX, TAILLEFENY);
 
 	SDL_RenderPresent(rendu);
 }
