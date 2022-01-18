@@ -195,7 +195,7 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 	SDL_RenderPresent(rendu);
 }
 
-void afficheLegende(SDL_Renderer* rendu, TTF_Font* font) {
+void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 	SDL_Color rouge = { 255,0,0 };
 	SDL_Color marron = { 111,45,0 };
 	SDL_Color bleu = { 0,0,255 };

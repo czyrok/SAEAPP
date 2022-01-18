@@ -51,4 +51,5 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 void pandaCoupeBambou(jardins &jardin, int indPanda)
 {
 	jardin.bambous[jardin.pandas[indPanda].x].taillePousse = 0;
+	jardin.NBCoupesStat++;
 }
