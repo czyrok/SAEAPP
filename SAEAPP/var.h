@@ -5,6 +5,8 @@ using namespace std;
 #include<SDL_image.h>
 #include<SDL_ttf.h>
 
+const int NBMaxJardins = 3;
+
 const int tailleMaxBambousY = 600;
 const int maxNBBambous = 40;
 const int tailleBambousX = 15;
@@ -52,6 +54,13 @@ struct jardins {
 	float paramPourReduceFastest = 1.45;
 };
 
+struct paramsPourTimer {
+	SDL_Renderer* rendu;
+	TTF_Font* police;
+	jardins* jardins;
+	int* jardinActuel;
+};
+
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
@@ -76,6 +85,7 @@ void pandaCoupeBambou(jardins&, int);
 void afficherMenu(SDL_Renderer*);
 void afficherBar(SDL_Renderer*);
 void afficherCarre(SDL_Renderer*);
+void afficherLegende(SDL_Renderer*, TTF_Font*);
 
 void initJardin(
 	jardins[],
@@ -109,10 +119,16 @@ void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracB
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 void afficherIMGBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 
-void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
-void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, SDL_Rect[], char[][NBMaxCaracBoutons], int);
+void afficherBoutonsMenuHaut(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+void afficherBoutonsMenuBas(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 
 void importerConfig(jardins[], int&);
+
+Uint32 actualiser(Uint32, void*);
+void lancer(SDL_TimerID&, paramsPourTimer&, jardins[], int);
+void pause(SDL_TimerID&);
+void modeManuel(SDL_TimerID&, jardins[], int);
 
 SDL_Texture* loadText(SDL_Renderer*, const char*, SDL_Color, TTF_Font*);
 SDL_Texture* loadImage(SDL_Renderer*, const char*);
