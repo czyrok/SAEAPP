@@ -67,7 +67,35 @@ void importerConfig(jardins jardins[], int& NBJardins) {
         }
 
         initJardin(jardins, NBJardins, paramsJardin[0], bambous, NBBambous, pandas, NBPandas, atoi(paramsJardin[1]), paramsJardin[2], atoi(paramsJardin[3]));
-
+        
         config.close();
     }
+}
+
+
+void exporterConfig(jardins jardins[], int& NBJardins,bambous bambous[],int& NBBambous,pandas pandas[],int& NBPandas) {
+    ofstream exp(".html", ios::out);
+    exp << "j," << jardins[0].nom << ',' << jardins[0].pandaDeplacementLimite << ',' << jardins[0].nomAlgo << ',' << jardins[0].manuelActive << '\n';
+
+    for (int i = 0; i < NBPandas; i++) {
+        if (i == NBPandas - 1) {
+            exp << "p," << pandas[0].x;
+        }
+        else {
+            exp << "p," << pandas[0].x << '\n';
+        }
+
+    }
+
+    for (int i = 0; i < NBBambous; i++) {
+        if (i == NBBambous - 1) {
+            exp << "b," << bambous[0].vitessePousse ;
+        }
+        else {
+            exp << "b," << bambous[0].vitessePousse << '\n';
+        }
+
+    }
+
+    exp.close(); 
 }
