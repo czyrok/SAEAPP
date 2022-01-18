@@ -18,6 +18,8 @@ Uint32 actualiser(Uint32 interval, void* params) {
 	afficherLegende(paramsTimer->rendu, paramsTimer->police);
 	afficherStatNBCoupes(paramsTimer->rendu, paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
 
+	SDL_RenderPresent(paramsTimer->rendu);
+
 	return interval;
 }
 

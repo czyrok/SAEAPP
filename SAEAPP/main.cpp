@@ -50,6 +50,8 @@ int main(int argc, char* argv[])
 	int NBBoutonsMenuBas = 2;
 	afficherBoutonsMenu(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, NBBoutonsMenuHaut, rectBoutonsMenuBas, boutonsMenuBas, NBBoutonsMenuBas);
 
+	SDL_RenderPresent(rendu);
+
 	bool ouvert = true;
 	SDL_Event event;
 
@@ -146,6 +148,8 @@ int main(int argc, char* argv[])
 
 								pandaCoupeBambouManuel(jardins[jardinActuel], i);
 
+								actualiserStats(jardins[jardinActuel]);
+
 								afficherCarre(rendu);
 
 								actualiserAffichageBambous(jardins[jardinActuel], rendu);
@@ -154,6 +158,8 @@ int main(int argc, char* argv[])
 
 								afficherLegende(rendu, police);
 								afficherStatNBCoupes(rendu, jardins[jardinActuel]);
+
+								SDL_RenderPresent(rendu);
 								
 								break;
 							}

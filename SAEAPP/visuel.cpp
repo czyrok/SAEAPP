@@ -9,8 +9,6 @@ void afficherMenu(SDL_Renderer* rendu) {
 
 	SDL_SetRenderDrawColor(rendu, 59, 93, 108, 255);
 	SDL_RenderFillRect(rendu, &menu);
-
-	SDL_RenderPresent(rendu);
 }
 
 void afficherBar(SDL_Renderer* rendu) {
@@ -18,22 +16,18 @@ void afficherBar(SDL_Renderer* rendu) {
 
 	SDL_SetRenderDrawColor(rendu, 37, 60, 71, 255);
 	SDL_RenderFillRect(rendu, &bar);
-
-	SDL_RenderPresent(rendu);
 }
 
 void afficherCarre(SDL_Renderer* rendu) {
 	SDL_Rect carre = { TAILLEMENUX, TAILLEBARY, TAILLEFENX - TAILLEMENUX - tailleStatsX, tailleStatsY };
 
-	SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(rendu, 169, 169, 169, 255);
 	SDL_RenderFillRect(rendu, &carre);
 
 	SDL_Rect carre2 = { TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX, TAILLEBARY, tailleStatsX, tailleStatsY };
 
 	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
 	SDL_RenderFillRect(rendu, &carre2);
-
-	SDL_RenderPresent(rendu);
 }
 
 void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
@@ -47,25 +41,38 @@ void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
 		rect.w = taillePandaX;
 		rect.h = taillePandaY;
 
-		SDL_RenderFillRect(rendu, &rect);
-	}
+		SDL_Texture* texture = loadImage(rendu, "img/panda.png");
 
-	SDL_RenderPresent(rendu);
+		SDL_RenderCopy(rendu, texture, NULL, &rect);
+
+		//SDL_RenderFillRect(rendu, &rect);
+	}
 }
 
 void actualiserAffichageBambous(jardins& jardin, SDL_Renderer* rendu)
 {
+	int tailleFosse = 4;
+
 	SDL_SetRenderDrawColor(rendu, 68, 118, 54, 255);
 
 	for (int i = 0; i < jardin.NBBambous; i++) {
+		int sommeH = 0;
+
 		for (int j = 0; j < jardin.bambous[i].taillePousse; j++) {
-			SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardin.bambous[i].vitessePousse * (float)10 * (j + 1))), tailleBambousX - 4, jardin.bambous[i].vitessePousse * 10 };
+			SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + tailleFosse / 2 , (TAILLEFENY - taillePandaY - ((float)jardin.bambous[i].vitessePousse * (float)10 * (j + 1))), tailleBambousX - tailleFosse, jardin.bambous[i].vitessePousse * 10 };
+
+			if (sommeH + carre.h > tailleMaxBambousY && sommeH - tailleMaxBambousY <= tailleMaxBambousY) {
+				carre.h = sommeH - tailleMaxBambousY;
+				break;
+			}
+
+			SDL_RenderDrawLine(rendu, carre.x - tailleFosse / 2, carre.y, carre.x + tailleFosse / 2 + carre.w, carre.y);
 
 			SDL_RenderFillRect(rendu, &carre);
+
+			sommeH += carre.h;
 		}
 	}
-
-	SDL_RenderPresent(rendu);
 }
 
 void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
@@ -162,7 +169,9 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 			pointmax.h = 3;
 			SDL_RenderFillRect(rendu, &pointmax);
 
-			if (compteur < NBStats && i> 0) {
+			if (i == 0) SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMaxStat[99] - hauteur, pointmax.x + 1, pointmax.y + 1);
+
+			if (compteur < NBStats && i > 0) {
 				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX  - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMaxStat[i - 1] - hauteur, pointmax.x + 1, pointmax.y + 1);
 			}
 
@@ -174,9 +183,12 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 			pointmin.h = 3;
 			SDL_RenderFillRect(rendu, &pointmin);
 
-			if (compteur < NBStats && i> 0) {
+			if (compteur < NBStats && i > 0) {
 				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMinStat[i - 1] - hauteur, pointmin.x + 1, pointmin.y + 1);
 			}
+
+			if (i == 0) SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMinStat[99] - hauteur, pointmin.x + 1, pointmin.y + 1);
+
 			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255); //moyenne bleu
 			SDL_Rect pointmoy;
 			pointmoy.x = (TAILLEFENX - tailleStatsX) + i * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - 1 - tailleNBCoupesStatX - tailleEchelleStatsX;
@@ -185,53 +197,58 @@ void actualiserAffichageStatistiques(jardins& jardin, SDL_Renderer* rendu)
 			pointmoy.h = 3;
 			SDL_RenderFillRect(rendu, &pointmoy);
 
-			if (compteur < NBStats && i> 0) {
+			if (compteur < NBStats && i > 0) {
 				SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMoyStat[i - 1] - hauteur, pointmoy.x + 1, pointmoy.y + 1);
 			}
+
+			if (i == 0) SDL_RenderDrawLine(rendu, (TAILLEFENX - tailleStatsX) + (i - 1) * tailleStatX + (NBStats - (jardin.indStat % NBStats)) * tailleStatX - tailleNBCoupesStatX - tailleEchelleStatsX, TAILLEFENY - jardin.tailleMoyStat[99] - hauteur, pointmoy.x + 1, pointmoy.y + 1);
+
 			compteur++;
 		}
 	}
-
-	SDL_RenderPresent(rendu);
 }
 
 void afficherLegende(SDL_Renderer* rendu, TTF_Font* font) {
 	SDL_Color rouge = { 255,0,0 };
 	SDL_Color marron = { 111,45,0 };
 	SDL_Color bleu = { 0,0,255 };
+	SDL_Color vert = { 0,255,0 };
 
 	SDL_Rect positionTexterouge;
-	positionTexterouge.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 2)/2;
+	positionTexterouge.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 4);
 	positionTexterouge.y = 50;
 	SDL_Texture* texture1 = loadText(rendu, "Max", rouge, font);
 	SDL_QueryTexture(texture1, NULL, NULL, &positionTexterouge.w, &positionTexterouge.h);
 	positionTexterouge.x -= positionTexterouge.w / 2;
 	SDL_RenderCopy(rendu, texture1, NULL, &positionTexterouge);
-	SDL_RenderPresent(rendu);
 	SDL_DestroyTexture(texture1);
 
-
-
 	SDL_Rect positionTextemarron;
-	positionTextemarron.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX)/2;
-	positionTextemarron.y = 50;
+	positionTextemarron.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 4);
+	positionTextemarron.y = 100;
 	SDL_Texture* texture2 = loadText(rendu, "Min", marron, font);
 	SDL_QueryTexture(texture2, NULL, NULL, &positionTextemarron.w, &positionTextemarron.h);
 	positionTextemarron.x -= positionTextemarron.w / 2;
 	SDL_RenderCopy(rendu, texture2, NULL, &positionTextemarron);
-	SDL_RenderPresent(rendu);
 	SDL_DestroyTexture(texture2);
 
-
 	SDL_Rect positionTextebleu;
-	positionTextebleu.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 2) / 2;
+	positionTextebleu.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 4);
 	positionTextebleu.y = 50;
 	SDL_Texture* texture3 = loadText(rendu, "Moyenne", bleu, font);
 	SDL_QueryTexture(texture3, NULL, NULL, &positionTextebleu.w, &positionTextebleu.h);
 	positionTextebleu.x -= positionTextebleu.w / 2;
 	SDL_RenderCopy(rendu, texture3, NULL, &positionTextebleu);
-	SDL_RenderPresent(rendu);
 	SDL_DestroyTexture(texture3);
+
+	SDL_Rect positionTexteVert;
+	positionTexteVert.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 4);
+	positionTexteVert.y = 100;
+	SDL_Texture* texture4 = loadText(rendu, "Nb de bambous coupés", vert, font);
+	SDL_QueryTexture(texture4, NULL, NULL, &positionTexteVert.w, &positionTexteVert.h);
+	positionTexteVert.x -= positionTexteVert.w / 2;
+	SDL_RenderCopy(rendu, texture4, NULL, &positionTexteVert);
+	SDL_DestroyTexture(texture4);
 }
 
 void afficherStatNBCoupes(SDL_Renderer* rendu, jardins& jardin)
@@ -241,7 +258,7 @@ void afficherStatNBCoupes(SDL_Renderer* rendu, jardins& jardin)
 	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
 	SDL_RenderFillRect(rendu, &carre);
 
-	SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+	SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
 	SDL_Rect statbambous;
 
 	statbambous.x = TAILLEFENX - tailleNBCoupesStatX;
@@ -249,8 +266,12 @@ void afficherStatNBCoupes(SDL_Renderer* rendu, jardins& jardin)
 	statbambous.w = tailleNBCoupesStatX;
 	statbambous.h = jardin.NBCoupesStat * 10;
 
+	if (statbambous.h > tailleStatsY) {
+		statbambous.y = TAILLEBARY;
+		statbambous.h = tailleStatsY;
+	}
+
 	SDL_RenderFillRect(rendu, &statbambous);
-	SDL_RenderPresent(rendu);
 }
 
 void afficherEchelle(SDL_Renderer* rendu) 
@@ -274,6 +295,4 @@ void afficherEchelle(SDL_Renderer* rendu)
 	for (int i = 10; i < tailleEchelleStatsY; i += 10) {
 		SDL_RenderDrawLine(rendu, echelle.x - tailleEchelleStatsX / 4, TAILLEFENY - i, echelle.x + echelle.w + tailleEchelleStatsX / 4, TAILLEFENY - i);
 	}
-
-	SDL_RenderPresent(rendu);
 }
