@@ -44,8 +44,6 @@ void actualiserAffichagePandas(jardins& jardin, SDL_Renderer* rendu)
 		SDL_Texture* texture = loadImage(rendu, "img/panda.png");
 
 		SDL_RenderCopy(rendu, texture, NULL, &rect);
-
-		//SDL_RenderFillRect(rendu, &rect);
 	}
 }
 
