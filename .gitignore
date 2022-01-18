@@ -8,6 +8,9 @@
 .DS_Store
 *.dSYM
 
+# Windows
+Thumbs.db
+
 # User-specific files
 *.rsuser
 *.suo
