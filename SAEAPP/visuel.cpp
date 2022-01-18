@@ -256,8 +256,13 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 
 		if (compteur > 0 && jardin.indStat % NBStats > 0)
 		{
+			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[i - 1], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[i - 1], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[i - 1], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 
@@ -286,14 +291,24 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 
 		if (i == 0)
 		{
+			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[99], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[99], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[99], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 		else if (compteur < NBStats)
 		{
+			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[i - 1], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[i - 1], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			
+			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
 			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[i - 1], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 
