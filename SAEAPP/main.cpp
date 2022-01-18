@@ -190,7 +190,6 @@ int main(int argc, char* argv[])
 			}
 			break;
 		case SDL_QUIT:
-			pause(timer);
 			ouvert = false;
 			break;
 		}
