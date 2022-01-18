@@ -233,10 +233,10 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		taille = 3;
 
 	int nombre = jardin.indStat < NBStats ? NBStats : jardin.indStat % NBStats;
-	int nombre2 = jardin.indStat < NBStats ? NBStats : jardin.indStat % NBStats;
 	int decalage = jardin.indStat < NBStats ? 0 : jardin.indStat % NBStats;
+	int max = jardin.indStat < NBStats ? jardin.indStat : NBStats;
 
-	for (int i = nombre; i < NBStats; i++)
+	for (int i = decalage; i < max; i++)
 	{
 		int pointX = tailleStatX * (i - decalage) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
 		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
@@ -271,7 +271,7 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		compteur++;
 	}
 
-	for (int i = 0; i < nombre2; i++)
+	for (int i = 0; i < decalage; i++)
 	{
 		int pointX = tailleStatX * (i + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
 		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
