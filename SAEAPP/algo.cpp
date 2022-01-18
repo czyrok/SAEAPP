@@ -30,7 +30,7 @@ void couperBambou(jardins& jardin) {
 		int indBambou = -1;
 
 		for (int i = 0; i < jardin.NBBambous; i++) {
-			if (jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse > sommeVitessePousse * 1.45 && indBambou == -1) {
+			if (jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse > sommeVitessePousse * jardin.paramPourReduceFastest && indBambou == -1) {
 				indBambou = i;
 			}
 			else if(jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse > sommeVitessePousse){
@@ -49,7 +49,7 @@ void couperBambou(jardins& jardin) {
 		}
 	}
 
-	//actualiserStats(jardin);
+	actualiserStats(jardin);
 }
 
 void croissanceBambou(jardins& jardin) {
