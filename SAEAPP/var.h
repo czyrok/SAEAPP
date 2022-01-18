@@ -113,3 +113,6 @@ void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCarac
 void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 
 void importerConfig(jardins[], int&);
+
+SDL_Texture* loadText(SDL_Renderer*, const char*, SDL_Color, TTF_Font*);
+SDL_Texture* loadImage(SDL_Renderer*, const char*);
