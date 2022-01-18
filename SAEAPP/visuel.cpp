@@ -39,11 +39,7 @@ void actualiserAffichagePandas(jardins &jardin, SDL_Renderer *rendu)
 
 	for (int i = 0; i < jardin.NBPandas; i++)
 	{
-		SDL_Rect rect;
-		rect.x = TAILLEMENUX + taillePandaX * jardin.pandas[i].x;
-		rect.y = TAILLEFENY - taillePandaY;
-		rect.w = taillePandaX;
-		rect.h = taillePandaY;
+		SDL_Rect rect = {TAILLEMENUX + taillePandaX * jardin.pandas[i].x, TAILLEFENY - taillePandaY, taillePandaX, taillePandaY};
 
 		SDL_Texture *texture = loadImage(rendu, "img/panda.png");
 
@@ -236,12 +232,14 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		compteur = 0,
 		taille = 3;
 
-	for (int i = jardin.indStat % NBStats; i < NBStats; i++)
+	int decalage = jardin.indStat < NBStats ? 0 : jardin.indStat % NBStats;
+
+	for (int i = decalage; i < NBStats; i++)
 	{
-		int pointX = tailleStatX * (i - (jardin.indStat % NBStats)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
+		int pointX = tailleStatX * (i - decalage) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
 		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
 
-		int ligneX = tailleStatX * ((i - 1) - (jardin.indStat % NBStats)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
+		int ligneX = tailleStatX * ((i - 1) - decalage) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
 		int ligneY = TAILLEFENY - hauteurX;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
@@ -266,12 +264,12 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		compteur++;
 	}
 
-	for (int i = 0; i < jardin.indStat % NBStats; i++)
+	for (int i = 0; i < decalage; i++)
 	{
-		int pointX = tailleStatX * (i + (NBStats - (jardin.indStat % NBStats))) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
+		int pointX = tailleStatX * (i + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
 		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
 
-		int ligneX = tailleStatX * ((i - 1)(NBStats - (jardin.indStat % NBStats))) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
+		int ligneX = tailleStatX * ((i - 1)(NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
 		int ligneY = TAILLEFENY - hauteurX;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
@@ -355,20 +353,15 @@ void afficherStatNBCoupes(SDL_Renderer *rendu, jardins &jardin)
 	SDL_RenderFillRect(rendu, &carre);
 
 	SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-	SDL_Rect statbambous;
+	SDL_Rect barre = {TAILLEFENX - tailleNBCoupesStatX, TAILLEFENY - jardin.NBCoupesStat * 10, tailleNBCoupesStatX, jardin.NBCoupesStat * 10};
 
-	statbambous.x = TAILLEFENX - tailleNBCoupesStatX;
-	statbambous.y = TAILLEFENY - jardin.NBCoupesStat * 10;
-	statbambous.w = tailleNBCoupesStatX;
-	statbambous.h = jardin.NBCoupesStat * 10;
-
-	if (statbambous.h > tailleStatsY)
+	if (barre.h > tailleStatsY)
 	{
-		statbambous.y = TAILLEBARY;
-		statbambous.h = tailleStatsY;
+		barre.y = TAILLEBARY;
+		barre.h = tailleStatsY;
 	}
 
-	SDL_RenderFillRect(rendu, &statbambous);
+	SDL_RenderFillRect(rendu, &barre);
 }
 
 void afficherEchelle(SDL_Renderer *rendu)
@@ -379,15 +372,9 @@ void afficherEchelle(SDL_Renderer *rendu)
 	SDL_RenderFillRect(rendu, &carre);
 
 	SDL_SetRenderDrawColor(rendu, 0, 59, 6, 255);
-	SDL_Rect echelle;
-
-	echelle.x = TAILLEFENX - tailleNBCoupesStatX - tailleEchelleStatsX + tailleEchelleStatsX / 4;
-	echelle.y = TAILLEBARY;
-	echelle.w = tailleEchelleStatsX / 2;
-	echelle.h = tailleEchelleStatsY;
+	SDL_Rect echelle = {TAILLEFENX - tailleNBCoupesStatX - tailleEchelleStatsX + tailleEchelleStatsX / 4, TAILLEBARY, tailleEchelleStatsX / 2, tailleEchelleStatsY};
 
 	SDL_RenderFillRect(rendu, &echelle);
-	SDL_RenderPresent(rendu);
 
 	for (int i = 10; i < tailleEchelleStatsY; i += 10)
 	{
