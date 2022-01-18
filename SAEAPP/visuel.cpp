@@ -338,7 +338,7 @@ void afficherLegende(SDL_Renderer *rendu, TTF_Font *font)
 	SDL_Rect positionTexteVert;
 	positionTexteVert.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 4);
 	positionTexteVert.y = 100;
-	SDL_Texture *texture4 = loadText(rendu, "Nb de bambous coup�s", vert, font);
+	SDL_Texture *texture4 = loadText(rendu, "Nb de bambous coupes", vert, font);
 	SDL_QueryTexture(texture4, NULL, NULL, &positionTexteVert.w, &positionTexteVert.h);
 	positionTexteVert.x -= positionTexteVert.w / 2;
 	SDL_RenderCopy(rendu, texture4, NULL, &positionTexteVert);
