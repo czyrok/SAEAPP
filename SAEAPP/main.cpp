@@ -132,6 +132,35 @@ int main(int argc, char* argv[])
 						break;
 					}
 				}
+
+				if (jardins[jardinActuel].manuelActive == true) {
+					for (int i = 0; i < jardins[jardinActuel].NBBambous; i++) {
+						for (int j = 0; j < jardins[jardinActuel].bambous[i].taillePousse; j++) {
+							SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardins[0].bambous[i].vitessePousse * (float)10 * (j + 1))), tailleBambousX - 4, jardins[0].bambous[i].vitessePousse * 10 };
+							if (event.button.x > carre.x
+								&& event.button.x < carre.x + carre.w
+								&& event.button.y > carre.y
+								&& event.button.y < carre.y + carre.h
+								) {
+								croissanceBambou(jardins[jardinActuel]);
+
+								pandaCoupeBambouManuel(jardins[jardinActuel], i);
+
+								afficherCarre(rendu);
+
+								actualiserAffichageBambous(jardins[jardinActuel], rendu);
+								actualiserAffichagePandas(jardins[jardinActuel], rendu);
+								actualiserAffichageStatistiques(jardins[jardinActuel], rendu);
+
+								afficherLegende(rendu, police);
+								afficherStatNBCoupes(rendu, jardins[jardinActuel]);
+								
+								break;
+							}
+						}
+					}
+				}
+
 			}
 			break;
 		case SDL_TEXTINPUT:

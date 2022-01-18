@@ -87,6 +87,7 @@ void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
 bool deplacementPanda(jardins&, int, int);
 void actualiserAffichagePanda(jardins&);
 void pandaCoupeBambou(jardins&, int);
+void pandaCoupeBambouManuel(jardins&, int);
 
 void afficherMenu(SDL_Renderer*);
 void afficherBar(SDL_Renderer*);

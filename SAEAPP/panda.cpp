@@ -53,3 +53,9 @@ void pandaCoupeBambou(jardins &jardin, int indPanda)
 	jardin.bambous[jardin.pandas[indPanda].x].taillePousse = 0;
 	jardin.NBCoupesStat++;
 }
+
+void pandaCoupeBambouManuel(jardins& jardin, int position)
+{
+	jardin.bambous[position].taillePousse = 0;
+	jardin.NBCoupesStat++;
+}
