@@ -12,7 +12,7 @@ const int maxNBBambous = 40;
 const int tailleBambousX = 15;
 
 const int taillePandaY = 20;
-const int maxNBPandas = 10;
+const int maxNBPandas = 20;
 const int taillePandaX = tailleBambousX;
 
 const int tailleStatsY = tailleMaxBambousY + taillePandaY;
@@ -53,8 +53,11 @@ struct jardins {
 	float tailleMaxStat[NBStats];
 	float tailleMinStat[NBStats];
 	float tailleMoyStat[NBStats];
-
+	int tailleNBDeplacementStat[NBStats];
 	int indStat = 0;
+
+	double tailleTempsCalculStat[NBStats];
+	int indTempsCalculStat = 0;
 
 	char nomAlgo[30];
 
@@ -69,7 +72,6 @@ struct paramsPourTimer {
 	jardins* jardins;
 	int* jardinActuel;
 	SDL_Texture* texturePanda;
-	double* tempsCalcul;
 };
 
 struct champs {
@@ -133,7 +135,8 @@ void initPandas(
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
 void actualiserAffichagePandas(jardins&, SDL_Renderer*, SDL_Texture*);
 void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
-void afficheTempsCalcul(SDL_Renderer*, double[]);
+void afficherTempsCalcul(SDL_Renderer*, jardins&);
+void actualiser(SDL_Renderer*, TTF_Font*, jardins*, int*, SDL_Texture*, bool, bool);
 
 void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
@@ -158,13 +161,16 @@ void afficherBoutonsMenuHaut(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxC
 void afficherBoutonsMenuBas(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 void afficherImagesMenuMilieu(SDL_Renderer*, SDL_Rect[], int, int, int, SDL_Texture*);
 
-void importerConfig(jardins[], int&);
+void importerConfig(jardins[], int);
 void exporterConfig(jardins);
 
 Uint32 actualiser(Uint32, void*);
-void lancer(SDL_TimerID&, paramsPourTimer&, jardins[], int);
+void lancer(SDL_TimerID&, paramsPourTimer&, jardins[], int, int);
 void pause(SDL_TimerID&);
 void modeManuel(SDL_TimerID&, jardins[], int);
+void augmenterTimer(int&);
+void diminuerTimer(int&);
+void resetTimer(int&);
 
 SDL_Texture* loadText(SDL_Renderer*, const char*, SDL_Color, TTF_Font*);
 SDL_Texture* loadImage(SDL_Renderer*, const char*);

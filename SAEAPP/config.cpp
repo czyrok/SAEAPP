@@ -6,7 +6,7 @@ using namespace std;
 
 #include "var.h"
 
-void importerConfig(jardins jardins[], int& NBJardins) {
+void importerConfig(jardins jardins[], int NBJardins) {
     ifstream config("config.txt", ios::in);
 
     char ligne[1000];

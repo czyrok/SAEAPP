@@ -11,6 +11,8 @@ void couperBambou(jardins& jardin) {
 	int indBambousStockage[maxNBBambous];
 	int NBIndBambous = 0;
 
+	jardin.tailleNBDeplacementStat[jardin.indStat % NBStats] = 0;
+
 	if (strcmp(jardin.nomAlgo, "ReduceMax") == 0) {
 		for (int i = 0; i < jardin.NBBambous; i++) {
 			indBambousStockage[NBIndBambous] = i;

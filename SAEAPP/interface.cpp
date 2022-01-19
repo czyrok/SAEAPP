@@ -81,14 +81,22 @@ void afficherBoutonsMenu(
 	SDL_Texture* textureImageMaj = loadImage(rendu, "img/maj.png");
 
 	for (int i = 0; i < NBBoutonsMenuMilieu; i++) {
-		if (i > 0) hauteur = 0;
+		int ind = 1;
 
-		if (strcmp(boutonsMenuMilieu[i], "Valeur de X") == 0) {
-			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuMilieu, boutonsMenuMilieu, i, 10 + hauteur, 0);
+		if (i > 0) {
+			hauteur = rectBoutonsMenuMilieu[i - 1].y + rectBoutonsMenuMilieu[i - 1].h;
+			ind = 0;
+		}
+		else {
+			hauteur += 10;
+		}
+
+		if (strcmp(boutonsMenuMilieu[i], "Valeur de X") == 0 || strcmp(boutonsMenuMilieu[i], "Limite de deplacement") == 0) {
+			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuMilieu, boutonsMenuMilieu, i, hauteur, 20);
 
 			afficherImagesMenuMilieu(rendu, rectImagesPlusMenuMilieu, i, rectBoutonsMenuMilieu[i].x + rectBoutonsMenuMilieu[i].w + 20, rectBoutonsMenuMilieu[i].y, textureImageMaj);
 		} else {
-			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuMilieu, boutonsMenuMilieu, i, rectBoutonsMenuMilieu[i - 1].y + rectBoutonsMenuMilieu[i - 1].h + hauteur, 40);
+			afficherBoutonsMenuHaut(rendu, police, rectBoutonsMenuMilieu, boutonsMenuMilieu, i, hauteur, 50);
 
 			afficherImagesMenuMilieu(rendu, rectImagesPlusMenuMilieu, i, rectBoutonsMenuMilieu[i].x + rectBoutonsMenuMilieu[i].w + 20, rectBoutonsMenuMilieu[i].y, textureImagePlus);
 			afficherImagesMenuMilieu(rendu, rectImagesMoinsMenuMilieu, i, rectBoutonsMenuMilieu[i].x + rectBoutonsMenuMilieu[i].w + 60, rectBoutonsMenuMilieu[i].y, textureImageMoins);

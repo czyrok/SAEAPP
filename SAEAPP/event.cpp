@@ -8,53 +8,15 @@ using namespace std;
 Uint32 actualiser(Uint32 interval, void* params) {
 	paramsPourTimer* paramsTimer = (paramsPourTimer*)params;
 
-	clock_t temps = clock();
-	croissanceBambou(paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[0] = ((double)temps) / CLOCKS_PER_SEC;
-	temps = clock();
-	couperBambou(paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[1] = ((double)temps) / CLOCKS_PER_SEC;
-
-	temps = clock();
-	afficherCarre(paramsTimer->rendu);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[2] = ((double)temps) / CLOCKS_PER_SEC;
-
-	temps = clock();
-	actualiserAffichageBambous(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[3] = ((double)temps) / CLOCKS_PER_SEC;
-	temps = clock();
-	actualiserAffichagePandas(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu, paramsTimer->texturePanda);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[4] = ((double)temps) / CLOCKS_PER_SEC;
-	temps = clock();
-	actualiserAffichageStatistiques(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[5] = ((double)temps) / CLOCKS_PER_SEC;
-	temps = clock();
-
-	afficherLegende(paramsTimer->rendu, paramsTimer->police);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[6] = ((double)temps) / CLOCKS_PER_SEC;
-	temps = clock();
-	afficherStatNBCoupes(paramsTimer->rendu, paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
-	temps = clock() - temps;
-	paramsTimer->tempsCalcul[7] = ((double)temps) / CLOCKS_PER_SEC;
-	
-	afficheTempsCalcul(paramsTimer->rendu, paramsTimer->tempsCalcul);
-
-	SDL_RenderPresent(paramsTimer->rendu);
+	actualiser(paramsTimer->rendu, paramsTimer->police, paramsTimer->jardins, paramsTimer->jardinActuel, paramsTimer->texturePanda, false, false);
 
 	return interval;
 }
 
-void lancer(SDL_TimerID& timer, paramsPourTimer& paramsTimer, jardins jardins[], int jardinActuel) {
+void lancer(SDL_TimerID& timer, paramsPourTimer& paramsTimer, jardins jardins[], int jardinActuel, int tempsTimer) {
 	SDL_RemoveTimer(timer);
 	jardins[jardinActuel].manuelActive = false;
-	timer = SDL_AddTimer(100, actualiser, &paramsTimer);
+	timer = SDL_AddTimer(tempsTimer, actualiser, &paramsTimer);
 }
 
 void pause(SDL_TimerID& timer) {
@@ -66,16 +28,62 @@ void modeManuel(SDL_TimerID& timer, jardins jardins[], int jardinActuel) {
 	SDL_RemoveTimer(timer);
 }
 
-void diminimuerTimer(int& valeur) {
+void augmenterTimer(int& valeur) {
 	if (valeur >= 200) {
 		valeur -= 100;
 	}
 }
 
-void augmanterTimer(int& valeur) {
+void diminuerTimer(int& valeur) {
 	valeur += 100;
 }
 
 void resetTimer(int& valeur) {
 	valeur = 100;
+}
+
+void actualiser(SDL_Renderer* rendu, TTF_Font* police, jardins* jardins, int* jardinActuel, SDL_Texture* texturePanda, bool manuel, bool setup) {
+	clock_t temps = clock();
+	if (!setup) croissanceBambou(jardins[*jardinActuel]);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	if (!manuel) couperBambou(jardins[*jardinActuel]);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	afficherCarre(rendu);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	actualiserAffichageBambous(jardins[*jardinActuel], rendu);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	actualiserAffichagePandas(jardins[*jardinActuel], rendu, texturePanda);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	actualiserAffichageStatistiques(jardins[*jardinActuel], rendu);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	afficherLegende(rendu, police);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	temps = clock();
+	afficherStatNBCoupes(rendu, jardins[*jardinActuel]);
+	temps = clock() - temps;
+	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+
+	afficherTempsCalcul(rendu, jardins[*jardinActuel]);
+
+	SDL_RenderPresent(rendu);
 }

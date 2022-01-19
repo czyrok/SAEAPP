@@ -24,18 +24,9 @@ void actualiserStats(jardins& jardin)
 		sommePousseBambous += jardin.bambous[i].taillePousse * jardin.bambous[i].vitessePousse;
 	}
 
-	if (jardin.indStat < NBStats)
-	{
-		jardin.tailleMaxStat[jardin.indStat] = max;
-		jardin.tailleMinStat[jardin.indStat] = min;
-		jardin.tailleMoyStat[jardin.indStat] = sommePousseBambous / jardin.NBBambous;
-	}
-	else
-	{
-		jardin.tailleMaxStat[jardin.indStat % NBStats] = max;
-		jardin.tailleMinStat[jardin.indStat % NBStats] = min;
-		jardin.tailleMoyStat[jardin.indStat % NBStats] = sommePousseBambous / jardin.NBBambous;
-	}
+	jardin.tailleMaxStat[jardin.indStat % NBStats] = max;
+	jardin.tailleMinStat[jardin.indStat % NBStats] = min;
+	jardin.tailleMoyStat[jardin.indStat % NBStats] = sommePousseBambous / jardin.NBBambous;
 
 	jardin.indStat++;
 }

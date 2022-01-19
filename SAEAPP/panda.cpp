@@ -53,6 +53,8 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x, bool gestionBatterie
 			jardin.pandas[indPanda].batterie -= 1;
 		}
 
+		jardin.tailleNBDeplacementStat[jardin.indStat % NBStats] += distanceParcourue;
+
 		if (jardin.pandas[indPanda].x == 0) jardin.pandas[indPanda].batterie = jardin.pandas[indPanda].limite;
 
 		return false;
@@ -67,6 +69,8 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x, bool gestionBatterie
 		}
 		else {
 			jardin.pandas[indPanda].batterie -= distanceParcourue;
+
+			jardin.tailleNBDeplacementStat[jardin.indStat % NBStats] += distanceParcourue;
 
 			if (jardin.pandas[indPanda].x != x)
 			{
@@ -88,6 +92,8 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x, bool gestionBatterie
 		else {
 			jardin.pandas[indPanda].batterie -= 1;
 
+			jardin.tailleNBDeplacementStat[jardin.indStat % NBStats] += distanceParcourue;
+
 			if (jardin.pandas[indPanda].x != x)
 			{
 				return false;
@@ -97,6 +103,9 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x, bool gestionBatterie
 				return true;
 			}
 		}
+	}
+	else {
+		return false;
 	}
 }
 
@@ -110,4 +119,8 @@ void pandaCoupeBambouManuel(jardins& jardin, int position)
 {
 	jardin.bambous[position].taillePousse = 0;
 	jardin.NBCoupesStat++;
+
+	jardin.tailleNBDeplacementStat[jardin.indStat % NBStats] = 0;
+
+	actualiserStats(jardin);
 }
