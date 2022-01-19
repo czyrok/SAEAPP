@@ -227,8 +227,14 @@ void afficherStatNBCoupes(SDL_Renderer *rendu, jardins &jardin)
 
 	if (barre.h > tailleStatsY)
 	{
-		barre.y = TAILLEBARY;
-		barre.h = tailleStatsY;
+		int d = 1;
+
+		while (barre.h / d > tailleStatsY) {
+			d = d * 10;
+		}
+
+		barre.y = TAILLEFENY - (jardin.NBCoupesStat * 10) / d;
+		barre.h = barre.h / d;
 	}
 
 	SDL_RenderFillRect(rendu, &barre);
@@ -254,7 +260,7 @@ void afficherEchelle(SDL_Renderer *rendu)
 
 void afficheTempsCalcul(SDL_Renderer* rendu, double tempsCalcul[]) {
 	int taille = 3;
-	int hauteurY = taillePandaY;
+	int hauteurY = taillePandaY / 2;
 	int decalage = tailleStatsX / 2 - 8 * tailleStatX;
 
 	for (int i = 0; i < 8; i++) {
