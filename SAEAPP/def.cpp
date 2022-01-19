@@ -68,9 +68,15 @@ void initBambous(
 void initPandas(
     pandas pandas[],
     int &NBPandas,
-    int x)
+    int x,
+    int batterie,
+    int limite,
+    char gestionBatterie[])
 {
     pandas[NBPandas].x = x;
+    pandas[NBPandas].batterie = batterie;
+    pandas[NBPandas].limite = limite;
+    strcpy_s(pandas[NBPandas].gestionBatterie, gestionBatterie);
 
     NBPandas++;
 }

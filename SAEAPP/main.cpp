@@ -7,8 +7,9 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	jardins jardins[2];
+	jardins jardins[1];
 	int jardinActuel = 0;
+	double tempsCalcul[8];
 
 	importerConfig(jardins, jardinActuel);
 
@@ -28,6 +29,8 @@ int main(int argc, char* argv[])
 
 	TTF_Init();
 	TTF_Font* police = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 25);
+
+	SDL_Texture* texturePanda = loadImage(rendu, "img/panda.png");
 
 	afficherMenu(rendu);
 	afficherBar(rendu);
@@ -55,12 +58,7 @@ int main(int argc, char* argv[])
 	bool ouvert = true;
 	SDL_Event event;
 
-	paramsPourTimer paramsTimer;
-
-	paramsTimer.rendu = rendu;
-	paramsTimer.police = police;
-	paramsTimer.jardins = jardins;
-	paramsTimer.jardinActuel = &jardinActuel;
+	paramsPourTimer paramsTimer = { rendu, police, jardins, &jardinActuel, texturePanda, tempsCalcul };
 
 	SDL_TimerID timer = SDL_AddTimer(100, actualiser, &paramsTimer);
 	SDL_RemoveTimer(timer);
@@ -165,8 +163,7 @@ int main(int argc, char* argv[])
 								afficherCarre(rendu);
 
 								actualiserAffichageBambous(jardins[jardinActuel], rendu);
-								actualiserAffichagePandas(jardins[jardinActuel], rendu);
-								actualiserAffichageStatistiques2(jardins[jardinActuel], rendu);
+								actualiserAffichageStatistiques(jardins[jardinActuel], rendu);
 
 								afficherLegende(rendu, police);
 								afficherStatNBCoupes(rendu, jardins[jardinActuel]);
@@ -176,11 +173,10 @@ int main(int argc, char* argv[])
 						}
 					}
 				}
-
 			}
 			break;
 		case SDL_TEXTINPUT:
-			cout << event.text.text << endl;
+			//cout << event.text.text << endl;
 			break;
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_l) {
@@ -198,6 +194,8 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
+
+	SDL_DestroyTexture(texturePanda);
 
 	TTF_CloseFont(police);
 	TTF_Quit();

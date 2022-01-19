@@ -5,13 +5,18 @@ using namespace std;
 
 #include "var.h"
 
-bool deplacementPanda(jardins &jardin, int indPanda, int x)
+bool deplacementPanda(jardins &jardin, int indPanda, int x, bool gestionBatterie)
 {
+	int positionInitiale = jardin.pandas[indPanda].x;
+	int distanceParcourue = 0;
+
 	if (jardin.pandas[indPanda].x != x)
 	{
 		if (jardin.pandaDeplacementLimite == -1)
 		{
 			jardin.pandas[indPanda].x = x;
+
+			distanceParcourue = abs(jardin.pandas[indPanda].x - x);
 		}
 		else
 		{
@@ -23,6 +28,7 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 				{
 					jardin.pandas[indPanda].x++;
 					NBDeplacementLimite--;
+					distanceParcourue++;
 				}
 			}
 			else
@@ -33,18 +39,64 @@ bool deplacementPanda(jardins &jardin, int indPanda, int x)
 				{
 					jardin.pandas[indPanda].x--;
 					NBDeplacementLimite--;
+					distanceParcourue++;
 				}
 			}
 		}
 	}
 
-	if (jardin.pandas[indPanda].x != x)
-	{
+	if (gestionBatterie) {
+		if (strcmp(jardin.pandas[indPanda].gestionBatterie, "Distance") == 0) {
+			jardin.pandas[indPanda].batterie -= distanceParcourue;
+		}
+		else if (strcmp(jardin.pandas[indPanda].gestionBatterie, "Jour") == 0) {
+			jardin.pandas[indPanda].batterie -= 1;
+		}
+
+		if (jardin.pandas[indPanda].x == 0) jardin.pandas[indPanda].batterie = jardin.pandas[indPanda].limite;
+
 		return false;
 	}
-	else
-	{
-		return true;
+
+	if (strcmp(jardin.pandas[indPanda].gestionBatterie, "Distance") == 0) {
+		if (jardin.pandas[indPanda].x > jardin.pandas[indPanda].batterie - distanceParcourue) {
+
+			jardin.pandas[indPanda].x = positionInitiale;
+
+			return deplacementPanda(jardin, indPanda, 0, true);
+		}
+		else {
+			jardin.pandas[indPanda].batterie -= distanceParcourue;
+
+			if (jardin.pandas[indPanda].x != x)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+	else if (strcmp(jardin.pandas[indPanda].gestionBatterie, "Jour") == 0) {
+		if (jardin.pandas[indPanda].batterie - jardin.pandas[indPanda].x < 0) {
+
+			jardin.pandas[indPanda].x = positionInitiale;
+
+			return deplacementPanda(jardin, indPanda, 0, true);
+		}
+		else {
+			jardin.pandas[indPanda].batterie -= 1;
+
+			if (jardin.pandas[indPanda].x != x)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
 	}
 }
 

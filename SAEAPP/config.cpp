@@ -2,6 +2,7 @@
 using namespace std;
 
 #include<fstream>
+#include <iostream>
 
 #include "var.h"
 
@@ -40,7 +41,28 @@ void importerConfig(jardins jardins[], int& NBJardins) {
                 initBambous(bambous, NBBambous, vitessePousse);
             }
             else if (selection == 'p') {
-                initPandas(pandas, NBPandas, 0);
+                int tailleLigne = strlen(ligne);
+                char params[3][50];
+                int indCarac = 0;
+                int NBVirgules = 0;
+
+                for (int i = 2; i < tailleLigne; i++) {
+                    if (ligne[i] == ',') {
+                        params[NBVirgules][indCarac] = '\0';
+
+                        NBVirgules++;
+                        indCarac = 0;
+                    }
+                    else {
+                        params[NBVirgules][indCarac] = ligne[i];
+
+                        indCarac++;
+                    }
+                }
+
+                params[NBVirgules][indCarac] = '\0';
+
+                initPandas(pandas, NBPandas, 0, atoi(params[0]), atoi(params[1]), params[2]);
             }
             else if (selection == 'j') {
                 strcpy_s(ligneJardin, ligne);
@@ -65,6 +87,8 @@ void importerConfig(jardins jardins[], int& NBJardins) {
                 indCaracLigneJardin++;
             }
         }
+
+        paramsJardin[NBVirgulesLigneJardin][indCaracLigneJardin] = '\0';
 
         initJardin(jardins, NBJardins, paramsJardin[0], bambous, NBBambous, pandas, NBPandas, atoi(paramsJardin[1]), paramsJardin[2], atoi(paramsJardin[3]), atof(paramsJardin[4]));
         

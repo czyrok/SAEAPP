@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 
+#include <iostream>
+
 #include "var.h"
 
 Uint32 actualiser(Uint32 interval, void* params) {
@@ -12,8 +14,8 @@ Uint32 actualiser(Uint32 interval, void* params) {
 	afficherCarre(paramsTimer->rendu);
 
 	actualiserAffichageBambous(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
-	actualiserAffichagePandas(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
-	actualiserAffichageStatistiques2(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
+	actualiserAffichagePandas(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu, paramsTimer->texturePanda);
+	actualiserAffichageStatistiques(paramsTimer->jardins[*(paramsTimer->jardinActuel)], paramsTimer->rendu);
 
 	afficherLegende(paramsTimer->rendu, paramsTimer->police);
 	afficherStatNBCoupes(paramsTimer->rendu, paramsTimer->jardins[*(paramsTimer->jardinActuel)]);
@@ -26,7 +28,7 @@ Uint32 actualiser(Uint32 interval, void* params) {
 void lancer(SDL_TimerID& timer, paramsPourTimer& paramsTimer, jardins jardins[], int jardinActuel) {
 	SDL_RemoveTimer(timer);
 	jardins[jardinActuel].manuelActive = false;
-	timer = SDL_AddTimer(10, actualiser, &paramsTimer);
+	timer = SDL_AddTimer(100, actualiser, &paramsTimer);
 }
 
 void pause(SDL_TimerID& timer) {

@@ -26,8 +26,6 @@ const int tailleEchelleStatsY = tailleStatsY;
 const int tailleNBCoupesStatX = 10;
 const int tailleNBCoupesStatY = tailleStatsY;
 
-int tempsCalcul[8];
-
 struct bambous {
 	int taillePousse;
 	float vitessePousse;
@@ -70,6 +68,8 @@ struct paramsPourTimer {
 	TTF_Font* police;
 	jardins* jardins;
 	int* jardinActuel;
+	SDL_Texture* texturePanda;
+	double* tempsCalcul;
 };
 
 const int TAILLEBARY = 50;
@@ -80,18 +80,12 @@ const int TAILLEFENY = tailleStatsY + TAILLEBARY;
 
 const int NBMaxCaracBoutons = 50;
 
-// prototype algo.cpp
 void couperBambou(jardins&);
 void croissanceBambou(jardins&);
 
-// prototype stats.cpp
 void actualiserStats(jardins&);
-void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
-void actualiserAffichageStatistiques2(jardins&, SDL_Renderer*);
 
-// prototype panda.cpp
 bool deplacementPanda(jardins&, int, int, bool);
-void actualiserAffichagePanda(jardins&);
 void pandaCoupeBambou(jardins&, int);
 void pandaCoupeBambouManuel(jardins&, int);
 
@@ -132,7 +126,8 @@ void initPandas(
 );
 
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
-void actualiserAffichagePandas(jardins&, SDL_Renderer*);
+void actualiserAffichagePandas(jardins&, SDL_Renderer*, SDL_Texture*);
+void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
 
 void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
