@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
 	jardins jardins[1];
 	int jardinActuel = 0;
 	double tempsCalcul[8];
+	int indBoutonMilieuActive = -1;
 
 	importerConfig(jardins, jardinActuel);
 
@@ -40,18 +41,43 @@ int main(int argc, char* argv[])
 	afficherStatNBCoupes(rendu, jardins[jardinActuel]);
 	afficherEchelle(rendu);
 
-	SDL_Rect rectBoutonsBar[10];
-	char boutonsBar[10][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Mode manuel" } };
-	int NBBoutonsBar = 3;
+	const int NBBoutonsBar = 5;
+	SDL_Rect rectBoutonsBar[NBBoutonsBar];
+	char boutonsBar[NBBoutonsBar][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Mode manuel" }, { "Jardin 1" }, { "Jardin 2" } };
+
 	afficherBoutonsBar(rendu, police, rectBoutonsBar, boutonsBar, NBBoutonsBar);
 
-	SDL_Rect rectBoutonsMenuHaut[10];
-	char boutonsMenuHaut[10][NBMaxCaracBoutons] = { { "Mode ReduceMax" }, { "Mode ReduceFastest" } };
-	int NBBoutonsMenuHaut = 2;
-	SDL_Rect rectBoutonsMenuBas[10];
-	char boutonsMenuBas[10][NBMaxCaracBoutons] = { { "Exporter" }, { "Importer" } };
-	int NBBoutonsMenuBas = 2;
-	afficherBoutonsMenu(rendu, police, rectBoutonsMenuHaut, boutonsMenuHaut, NBBoutonsMenuHaut, rectBoutonsMenuBas, boutonsMenuBas, NBBoutonsMenuBas);
+	const int NBBoutonsMenuHaut = 2;
+	SDL_Rect rectBoutonsMenuHaut[NBBoutonsMenuHaut];
+	char boutonsMenuHaut[NBBoutonsMenuHaut][NBMaxCaracBoutons] = { { "Mode ReduceMax" }, { "Mode ReduceFastest" } };
+
+	const int NBBoutonsMenuMilieu = 3;
+	SDL_Rect rectBoutonsMenuMilieu[NBBoutonsMenuMilieu];
+	char boutonsMenuMilieu[NBBoutonsMenuMilieu][NBMaxCaracBoutons] = { { "Valeur de X" }, { "Bambou" }, { "Panda" } };
+
+	champs champsMenuMilieu[NBBoutonsMenuMilieu];
+
+	SDL_Rect rectImagesPlusMenuMilieu[NBBoutonsMenuMilieu];
+	SDL_Rect rectImagesMoinsMenuMilieu[NBBoutonsMenuMilieu];
+
+	const int NBBoutonsMenuBas = 2;
+	SDL_Rect rectBoutonsMenuBas[NBBoutonsMenuBas];
+	char boutonsMenuBas[NBBoutonsMenuBas][NBMaxCaracBoutons] = { { "Exporter" }, { "Importer" } };
+
+	afficherBoutonsMenu(rendu,
+		police,
+		rectBoutonsMenuHaut,
+		boutonsMenuHaut,
+		NBBoutonsMenuHaut,
+		rectBoutonsMenuBas,
+		boutonsMenuBas,
+		NBBoutonsMenuBas,
+		rectBoutonsMenuMilieu,
+		boutonsMenuMilieu,
+		NBBoutonsMenuMilieu,
+		rectImagesPlusMenuMilieu,
+		rectImagesMoinsMenuMilieu
+	);
 
 	SDL_RenderPresent(rendu);
 
@@ -74,8 +100,7 @@ int main(int argc, char* argv[])
 						&& event.button.x < rectBoutonsBar[i].x + rectBoutonsBar[i].w
 						&& event.button.y > rectBoutonsBar[i].y
 						&& event.button.y < rectBoutonsBar[i].y + rectBoutonsBar[i].h
-						) {
-						
+					) {
 						if (strcmp(boutonsBar[i], "Lancer") == 0) {
 							lancer(timer, paramsTimer, jardins, jardinActuel);
 						}
@@ -96,18 +121,13 @@ int main(int argc, char* argv[])
 						&& event.button.x < rectBoutonsMenuHaut[i].x + rectBoutonsMenuHaut[i].w
 						&& event.button.y > rectBoutonsMenuHaut[i].y
 						&& event.button.y < rectBoutonsMenuHaut[i].y + rectBoutonsMenuHaut[i].h
-						) {
-
+					) {
 						if (strcmp(boutonsMenuHaut[i], "Mode ReduceFastest") == 0) {
-							strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceMax");
-						}
-						else if (strcmp(boutonsMenuHaut[i], "Mode ReduceMax") == 0) {
 							strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceFastest");
 						}
-
-						/*if (strcmp(boutonsMenuHaut[i], "Mode ReduceFastest") == 0) {
-							SDL_StartTextInput();
-						}*/
+						else if (strcmp(boutonsMenuHaut[i], "Mode ReduceMax") == 0) {
+							strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceMax");
+						}
 
 						break;
 					}
@@ -119,7 +139,7 @@ int main(int argc, char* argv[])
 						&& event.button.x < rectBoutonsMenuBas[i].x + rectBoutonsMenuBas[i].w
 						&& event.button.y > rectBoutonsMenuBas[i].y
 						&& event.button.y < rectBoutonsMenuBas[i].y + rectBoutonsMenuBas[i].h
-						) {
+					) {
 
 						if (strcmp(boutonsMenuBas[i], "Importer") == 0) {
 							pause(timer);
@@ -127,6 +147,54 @@ int main(int argc, char* argv[])
 						}
 						else if (strcmp(boutonsMenuBas[i], "Exporter") == 0) {
 							exporterConfig(jardins[jardinActuel]);
+						}
+
+						break;
+					}
+				}
+
+				for (int i = 1; i < NBBoutonsMenuMilieu; i++) {
+					if (
+						event.button.x > rectImagesPlusMenuMilieu[i].x
+						&& event.button.x < rectImagesPlusMenuMilieu[i].x + rectImagesPlusMenuMilieu[i].w
+						&& event.button.y > rectImagesPlusMenuMilieu[i].y
+						&& event.button.y < rectImagesPlusMenuMilieu[i].y + rectImagesPlusMenuMilieu[i].h
+					) {
+						if (strcmp(boutonsMenuMilieu[i], "Valeur de X") == 0) {
+							if (atof(champsMenuMilieu[i].valeur) > 0) {
+								jardins[jardinActuel].paramPourReduceFastest = atof(champsMenuMilieu[i].valeur);
+							}
+						}
+						else if (strcmp(boutonsMenuMilieu[i], "Bambou") == 0) {
+							if (atof(champsMenuMilieu[i].valeur) > 0) {
+								initBambous(jardins[jardinActuel].bambous, jardins[jardinActuel].NBBambous, atof(champsMenuMilieu[i].valeur));
+							}
+						}
+						else if (strcmp(boutonsMenuMilieu[i], "Panda") == 0) {
+							if (atof(champsMenuMilieu[i].valeur) > 0) {
+								char algoBatterie[] = "Distance";
+
+								initPandas(jardins[jardinActuel].pandas, jardins[jardinActuel].NBPandas, 0, atoi(champsMenuMilieu[i].valeur), atoi(champsMenuMilieu[i].valeur), algoBatterie);
+							}
+						}
+
+						break;
+					}
+				}
+
+				indBoutonMilieuActive = -1;
+
+				for (int i = 0; i < NBBoutonsMenuMilieu; i++) {
+					if (
+						event.button.x > rectBoutonsMenuMilieu[i].x
+						&& event.button.x < rectBoutonsMenuMilieu[i].x + rectBoutonsMenuMilieu[i].w
+						&& event.button.y > rectBoutonsMenuMilieu[i].y
+						&& event.button.y < rectBoutonsMenuMilieu[i].y + rectBoutonsMenuMilieu[i].h
+					) {
+						indBoutonMilieuActive = i;
+
+						for (int i = 0; i < NBBoutonsMenuMilieu; i++) {
+							strcpy_s(champsMenuMilieu[i].valeur, "");
 						}
 
 						break;
@@ -176,7 +244,15 @@ int main(int argc, char* argv[])
 			}
 			break;
 		case SDL_TEXTINPUT:
-			//cout << event.text.text << endl;
+			if (indBoutonMilieuActive > -1) {
+				champsMenuMilieu[indBoutonMilieuActive].valeur[champsMenuMilieu[indBoutonMilieuActive].indValeur] = *event.text.text;
+				champsMenuMilieu[indBoutonMilieuActive].valeur[champsMenuMilieu[indBoutonMilieuActive].indValeur + 1] = '\0';
+
+				cout << champsMenuMilieu[indBoutonMilieuActive].valeur << endl;
+
+				champsMenuMilieu[indBoutonMilieuActive].indValeur++;
+			}
+
 			break;
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_l) {

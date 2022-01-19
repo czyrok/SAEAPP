@@ -99,19 +99,14 @@ void importerConfig(jardins jardins[], int& NBJardins) {
 void exporterConfig(jardins jardin) {
     ofstream config("config.txt", ios::out);
 
-    config << "j," << jardin.pandaDeplacementLimite << ',' << jardin.nomAlgo << ',' << jardin.manuelActive << endl;
+    config << "j," << jardin.nom << ',' << jardin.pandaDeplacementLimite << ',' << jardin.nomAlgo << ',' << jardin.manuelActive << ',' << jardin.paramPourReduceFastest << endl;
 
     for (int i = 0; i < jardin.NBPandas; i++) {
-        if (i == jardin.NBPandas - 1 && i != 0) {
-            config << "p";
-        }
-        else {
-            config << "p" << endl;
-        }
+        config << "p," << jardin.pandas[i].batterie << ',' << jardin.pandas[i].limite << ',' << jardin.pandas[i].gestionBatterie << endl;
     }
 
     for (int i = 0; i < jardin.NBBambous; i++) {
-        if (i == jardin.NBBambous - 1 && i != 0) {
+        if (i == jardin.NBBambous - 1) {
             config << "b," << jardin.bambous[i].vitessePousse;
         }
         else {

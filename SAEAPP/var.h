@@ -72,6 +72,11 @@ struct paramsPourTimer {
 	double* tempsCalcul;
 };
 
+struct champs {
+	int indValeur = 0;
+	char valeur[30] = "";
+};
+
 const int TAILLEBARY = 50;
 const int TAILLEMENUX = 300;
 
@@ -133,9 +138,24 @@ void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracB
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 void afficherIMGBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
 
-void afficherBoutonsMenu(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, SDL_Rect[], char[][NBMaxCaracBoutons], int);
-void afficherBoutonsMenuHaut(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+void afficherBoutonsMenu(
+	SDL_Renderer*,
+	TTF_Font*,
+	SDL_Rect[],
+	char[][NBMaxCaracBoutons],
+	int,
+	SDL_Rect[],
+	char[][NBMaxCaracBoutons],
+	int,
+	SDL_Rect[],
+	char[][NBMaxCaracBoutons],
+	int,
+	SDL_Rect[],
+	SDL_Rect[]
+);
+void afficherBoutonsMenuHaut(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int, int);
 void afficherBoutonsMenuBas(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);
+void afficherImagesMenuMilieu(SDL_Renderer*, SDL_Rect[], int, int, int, SDL_Texture*);
 
 void importerConfig(jardins[], int&);
 void exporterConfig(jardins);
