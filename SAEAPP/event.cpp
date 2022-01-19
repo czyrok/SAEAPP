@@ -65,3 +65,17 @@ void modeManuel(SDL_TimerID& timer, jardins jardins[], int jardinActuel) {
 	jardins[jardinActuel].manuelActive = true;
 	SDL_RemoveTimer(timer);
 }
+
+void diminimuerTimer(int& valeur) {
+	if (valeur >= 200) {
+		valeur -= 100;
+	}
+}
+
+void augmanterTimer(int& valeur) {
+	valeur += 100;
+}
+
+void resetTimer(int& valeur) {
+	valeur = 100;
+}
