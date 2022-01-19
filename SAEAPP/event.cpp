@@ -46,42 +46,42 @@ void actualiser(SDL_Renderer* rendu, TTF_Font* police, jardins* jardins, int* ja
 	clock_t temps = clock();
 	if (!setup) croissanceBambou(jardins[*jardinActuel]);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	if (!manuel) couperBambou(jardins[*jardinActuel]);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	afficherCarre(rendu);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	actualiserAffichageBambous(jardins[*jardinActuel], rendu);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	actualiserAffichagePandas(jardins[*jardinActuel], rendu, texturePanda);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	actualiserAffichageStatistiques(jardins[*jardinActuel], rendu);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	afficherLegende(rendu, police);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	temps = clock();
 	afficherStatNBCoupes(rendu, jardins[*jardinActuel]);
 	temps = clock() - temps;
-	jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
+	if (!setup) jardins[*jardinActuel].tailleTempsCalculStat[jardins[*jardinActuel].indTempsCalculStat++ % NBStats] = ((double)temps) / CLOCKS_PER_SEC;
 
 	afficherTempsCalcul(rendu, jardins[*jardinActuel]);
 

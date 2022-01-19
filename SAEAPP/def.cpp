@@ -43,6 +43,7 @@ void initJardin(
         jardins[jardinActuel].tailleMaxStat[i] = 0;
         jardins[jardinActuel].tailleMinStat[i] = 0;
         jardins[jardinActuel].tailleMoyStat[i] = 0;
+        jardins[jardinActuel].tailleNBDeplacementStat[i] = 0;
     }
 
     jardins[jardinActuel].indStat = 0;

@@ -7,12 +7,13 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	jardins jardins[2];
+	jardins jardins[3];
 	int jardinActuel = 0;
 	int indBoutonMilieuActive = -1;
 
 	importerConfig(jardins, jardinActuel);
 	importerConfig(jardins, jardinActuel + 1);
+	importerConfig(jardins, jardinActuel + 2);
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) return 1;
 
@@ -41,9 +42,9 @@ int main(int argc, char* argv[])
 	afficherStatNBCoupes(rendu, jardins[jardinActuel]);
 	afficherEchelle(rendu);
 
-	const int NBBoutonsBar = 8;
+	const int NBBoutonsBar = 9;
 	SDL_Rect rectBoutonsBar[NBBoutonsBar];
-	char boutonsBar[NBBoutonsBar][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Plus vite" }, { "Moins vite" }, { "Vitesse par defaut" }, { "Mode manuel" }, { "Jardin 1" }, { "Jardin 2" } };
+	char boutonsBar[NBBoutonsBar][NBMaxCaracBoutons] = { { "Lancer" }, { "Pause" }, { "Plus vite" }, { "Moins vite" }, { "Vitesse par defaut" }, { "Mode manuel" }, { "Jardin 1" }, { "Jardin 2" }, { "Jardin 3" } };
 
 	afficherBoutonsBar(rendu, police, rectBoutonsBar, boutonsBar, NBBoutonsBar);
 
@@ -139,6 +140,10 @@ int main(int argc, char* argv[])
 								jardinActuel = 1;
 								actualiser(rendu, police, jardins, &jardinActuel, texturePanda, true, true);
 							}
+							else if (strcmp(boutonsBar[i], "Jardin 3") == 0) {
+								jardinActuel = 2;
+								actualiser(rendu, police, jardins, &jardinActuel, texturePanda, true, true);
+							}
 
 							break;
 						}
@@ -190,6 +195,7 @@ int main(int argc, char* argv[])
 							if (strcmp(boutonsMenuBas[i], "Importer") == 0) {
 								pause(timer);
 								importerConfig(jardins, jardinActuel);
+								actualiser(rendu, police, jardins, &jardinActuel, texturePanda, true, true);
 							}
 							else if (strcmp(boutonsMenuBas[i], "Exporter") == 0) {
 								exporterConfig(jardins[jardinActuel]);
