@@ -137,8 +137,20 @@ int main(int argc, char* argv[])
 
 				if (jardins[jardinActuel].manuelActive == true) {
 					for (int i = 0; i < jardins[jardinActuel].NBBambous; i++) {
+						int sommeH = 0;
+
 						for (int j = 0; j < jardins[jardinActuel].bambous[i].taillePousse; j++) {
 							SDL_Rect carre = { TAILLEMENUX + (tailleBambousX * i) + 2, (TAILLEFENY - taillePandaY - ((float)jardins[0].bambous[i].vitessePousse * (float)10 * (j + 1))), tailleBambousX - 4, jardins[0].bambous[i].vitessePousse * 10 };
+							
+							if (sommeH + carre.h > tailleMaxBambousY && sommeH - tailleMaxBambousY <= tailleMaxBambousY)
+							{
+								carre.h = sommeH - tailleMaxBambousY;
+								break;
+							}
+							else {
+								sommeH += carre.h;
+							}
+
 							if (event.button.x > carre.x
 								&& event.button.x < carre.x + carre.w
 								&& event.button.y > carre.y
@@ -160,8 +172,6 @@ int main(int argc, char* argv[])
 								afficherStatNBCoupes(rendu, jardins[jardinActuel]);
 
 								SDL_RenderPresent(rendu);
-								
-								break;
 							}
 						}
 					}
@@ -181,12 +191,6 @@ int main(int argc, char* argv[])
 			}
 			else if (event.key.keysym.sym == SDLK_m) {
 				modeManuel(timer, jardins, jardinActuel);
-				/*if (strcmp(jardins[jardinActuel].nomAlgo, "ReduceMax") == 0) {
-					strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceFastest");
-				}
-				else if (strcmp(jardins[jardinActuel].nomAlgo, "ReduceFastest") == 0) {
-					strcpy_s(jardins[jardinActuel].nomAlgo, "ReduceMax");
-				}*/
 			}
 			break;
 		case SDL_QUIT:

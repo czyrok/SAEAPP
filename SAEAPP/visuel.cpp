@@ -228,11 +228,10 @@ void actualiserAffichageStatistiques(jardins &jardin, SDL_Renderer *rendu)
 
 void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 {
-	int hauteurX = 50,
+	int hauteurX = taillePandaY,
 		compteur = 0,
 		taille = 3;
 
-	int nombre = jardin.indStat < NBStats ? NBStats : jardin.indStat % NBStats;
 	int decalage = jardin.indStat < NBStats ? 0 : jardin.indStat % NBStats;
 	int max = jardin.indStat < NBStats ? jardin.indStat : NBStats;
 
