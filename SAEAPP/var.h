@@ -26,6 +26,8 @@ const int tailleEchelleStatsY = tailleStatsY;
 const int tailleNBCoupesStatX = 10;
 const int tailleNBCoupesStatY = tailleStatsY;
 
+int tempsCalcul[8];
+
 struct bambous {
 	int taillePousse;
 	float vitessePousse;
