@@ -31,6 +31,7 @@ void afficherCarre(SDL_Renderer *rendu)
 
 	SDL_SetRenderDrawColor(rendu, 189, 189, 189, 255);
 	SDL_RenderFillRect(rendu, &carre2);
+	
 }
 
 void actualiserAffichagePandas(jardins &jardin, SDL_Renderer *rendu)
@@ -244,27 +245,33 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		int ligneY = TAILLEFENY - hauteurX;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-		SDL_Rect pointMax = {pointX, pointY - jardin.tailleMaxStat[i], taille, taille};
+		int pointMaxY = pointY - jardin.tailleMaxStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMaxStat[i];
+		SDL_Rect pointMax = {pointX, pointMaxY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMax);
 
 		SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
-		SDL_Rect pointMin = {pointX, pointY - jardin.tailleMinStat[i], taille, taille};
+		int pointMinY = pointY - jardin.tailleMinStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMinStat[i];
+		SDL_Rect pointMin = {pointX, pointMinY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMin);
 
 		SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
-		SDL_Rect pointMoy = {pointX, pointY - jardin.tailleMoyStat[i], taille, taille};
+		int pointMoyY = pointY - jardin.tailleMoyStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMoyStat[i];
+		SDL_Rect pointMoy = {pointX, pointMoyY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMoy);
 
 		if (compteur > 0 && jardin.indStat % NBStats > 0)
 		{
 			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[i - 1], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			int ligneMaxY = ligneY - jardin.tailleMaxStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMaxStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMaxY, pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[i - 1], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			int ligneMinY = ligneY - jardin.tailleMinStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMinStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMinY, pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[i - 1], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
+			int ligneMoyY = ligneY - jardin.tailleMoyStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMoyStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMoyY, pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 
 		compteur++;
@@ -279,38 +286,47 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 		int ligneY = TAILLEFENY - hauteurX;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-		SDL_Rect pointMax = {pointX, pointY - jardin.tailleMaxStat[i], taille, taille};
+		int pointMaxY = pointY - jardin.tailleMaxStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMaxStat[i];
+		SDL_Rect pointMax = {pointX, pointMaxY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMax);
 
 		SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
-		SDL_Rect pointMin = {pointX, pointY - jardin.tailleMinStat[i], taille, taille};
+		int pointMinY = pointY - jardin.tailleMinStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMinStat[i];
+		SDL_Rect pointMin = {pointX, pointMinY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMin);
 
 		SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
-		SDL_Rect pointMoy = {pointX, pointY - jardin.tailleMoyStat[i], taille, taille};
+		int pointMoyY = pointY - jardin.tailleMoyStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMoyStat[i];
+		SDL_Rect pointMoy = {pointX, pointMoyY, taille, taille};
 		SDL_RenderFillRect(rendu, &pointMoy);
 
 		if (i == 0)
 		{
 			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[99], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			int ligneMaxY = ligneY - jardin.tailleMaxStat[99] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMaxStat[99];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMaxY, pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[99], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			int ligneMinY = ligneY - jardin.tailleMinStat[99] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMinStat[99];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMinY, pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[99], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
+			int ligneMoyY = ligneY - jardin.tailleMoyStat[99] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMoyStat[99];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMoyY, pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 		else if (compteur < NBStats)
 		{
 			SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMaxStat[i - 1], pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
+			int ligneMaxY = ligneY - jardin.tailleMaxStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMaxStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMaxY, pointMax.x + (int)(taille / 2), pointMax.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 111, 45, 0, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMinStat[i - 1], pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
+			int ligneMinY = ligneY - jardin.tailleMinStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMinStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMinY, pointMin.x + (int)(taille / 2), pointMin.y + (int)(taille / 2));
 			
 			SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
-			SDL_RenderDrawLine(rendu, ligneX, ligneY - jardin.tailleMoyStat[i - 1], pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
+			int ligneMoyY = ligneY - jardin.tailleMoyStat[i - 1] <= TAILLEBARY ? TAILLEBARY + (int)(taille / 2) : ligneY - jardin.tailleMoyStat[i - 1];
+			SDL_RenderDrawLine(rendu, ligneX, ligneMoyY, pointMoy.x + (int)(taille / 2), pointMoy.y + (int)(taille / 2));
 		}
 
 		compteur++;
@@ -319,21 +335,37 @@ void actualiserAffichageStatistiques2(jardins &jardin, SDL_Renderer *rendu)
 
 void afficherLegende(SDL_Renderer *rendu, TTF_Font *font)
 {
-	SDL_Color rouge = {255, 0, 0};
-	SDL_Color marron = {111, 45, 0};
-	SDL_Color bleu = {0, 0, 255};
-	SDL_Color vert = {0, 255, 0};
+	SDL_Rect positionTexte;
+	positionTexte.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 4);
+	positionTexte.y = 50;
+	SDL_Texture *texture = loadText(rendu, "Max", { 255, 0, 0 }, font);
+	SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+	positionTexte.x -= positionTexte.w / 2;
+	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
-	SDL_Rect positionTexterouge;
-	positionTexterouge.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 4);
-	positionTexterouge.y = 50;
-	SDL_Texture *texture1 = loadText(rendu, "Max", rouge, font);
-	SDL_QueryTexture(texture1, NULL, NULL, &positionTexterouge.w, &positionTexterouge.h);
-	positionTexterouge.x -= positionTexterouge.w / 2;
-	SDL_RenderCopy(rendu, texture1, NULL, &positionTexterouge);
-	SDL_DestroyTexture(texture1);
+	positionTexte.y = 100;
+	texture = loadText(rendu, "Min", { 111, 45, 0 }, font);
+	positionTexte.x += positionTexte.w / 2;
+	SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+	positionTexte.x -= positionTexte.w / 2;
+	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
-	SDL_Rect positionTextemarron;
+	positionTexte.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 + ((tailleStatsX) / 4);
+	texture = loadText(rendu, "Nb de bambous coupes", { 0, 255, 0 }, font);
+	SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+	positionTexte.x -= positionTexte.w / 2;
+	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+
+	positionTexte.y = 50;
+	texture = loadText(rendu, "Moyenne", { 0, 0, 255 }, font);
+	positionTexte.x += positionTexte.w / 2;
+	SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+	positionTexte.x -= positionTexte.w / 2;
+	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+	SDL_DestroyTexture(texture);
+	
+
+	/*SDL_Rect positionTextemarron;
 	positionTextemarron.x = TAILLEFENX - tailleStatsX - tailleEchelleStatsX - tailleNBCoupesStatX + (tailleStatsX) / 2 - ((tailleStatsX) / 4);
 	positionTextemarron.y = 100;
 	SDL_Texture *texture2 = loadText(rendu, "Min", marron, font);
@@ -358,7 +390,7 @@ void afficherLegende(SDL_Renderer *rendu, TTF_Font *font)
 	SDL_QueryTexture(texture4, NULL, NULL, &positionTexteVert.w, &positionTexteVert.h);
 	positionTexteVert.x -= positionTexteVert.w / 2;
 	SDL_RenderCopy(rendu, texture4, NULL, &positionTexteVert);
-	SDL_DestroyTexture(texture4);
+	SDL_DestroyTexture(texture4);*/
 }
 
 void afficherStatNBCoupes(SDL_Renderer *rendu, jardins &jardin)

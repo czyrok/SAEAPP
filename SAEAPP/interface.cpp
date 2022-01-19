@@ -14,8 +14,6 @@ void afficherBoutonsBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBout
 			afficherIMGBoutonBar(rendu, police, rectBoutonsBar, boutonsBar, i, rectBoutonsBar[i - 1].x + rectBoutonsBar[i - 1].w);
 		}
 	}
-
-	SDL_RenderPresent(rendu);
 }
 
 void afficherTexteBoutonBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsBar[], char boutonsBar[][NBMaxCaracBoutons], int indBouton, int departX) {
@@ -28,6 +26,7 @@ void afficherTexteBoutonBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rect
 	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
 	rectBoutonsBar[indBouton] = positionTexte;
+	SDL_DestroyTexture(texture);
 }
 
 void afficherIMGBoutonBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsBar[], char boutonsBar[][NBMaxCaracBoutons], int indBouton, int departX) {
@@ -46,6 +45,7 @@ void afficherIMGBoutonBar(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBo
 	rectBoutonsBar[indBouton] = positionIMG;
 
 	afficherTexteBoutonBar(rendu, police, rectBoutonsBar, boutonsBar, indBouton, departX + 30);
+	SDL_DestroyTexture(texture);
 }
 
 void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenuHaut[], char boutonsMenuHaut[][NBMaxCaracBoutons], int NBBoutonsMenuHaut, SDL_Rect rectBoutonsMenuBas[], char boutonsMenuBas[][NBMaxCaracBoutons], int NBBoutonsMenuBas) {
@@ -66,8 +66,6 @@ void afficherBoutonsMenu(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBou
 			afficherBoutonsMenuBas(rendu, police, rectBoutonsMenuBas, boutonsMenuBas, i, rectBoutonsMenuBas[i - 1].h + 10 * (i + 1));
 		}
 	}
-
-	SDL_RenderPresent(rendu);
 }
 
 void afficherBoutonsMenuHaut(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int indBouton, int departY) {
@@ -80,6 +78,7 @@ void afficherBoutonsMenuHaut(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rec
 	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
 	rectBoutonsMenu[indBouton] = positionTexte;
+	SDL_DestroyTexture(texture);
 }
 
 void afficherBoutonsMenuBas(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rectBoutonsMenu[], char boutonsMenu[][NBMaxCaracBoutons], int indBouton, int departY) {
@@ -92,4 +91,5 @@ void afficherBoutonsMenuBas(SDL_Renderer* rendu, TTF_Font* police, SDL_Rect rect
 	SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
 
 	rectBoutonsMenu[indBouton] = positionTexte;
+	SDL_DestroyTexture(texture);
 }
