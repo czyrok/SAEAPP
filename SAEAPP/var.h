@@ -33,6 +33,9 @@ struct bambous {
 
 struct pandas {
 	int x;
+	int batterie;
+	int limite;
+	char gestionBatterie[30];
 };
 
 struct jardins {
@@ -85,7 +88,7 @@ void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
 void actualiserAffichageStatistiques2(jardins&, SDL_Renderer*);
 
 // prototype panda.cpp
-bool deplacementPanda(jardins&, int, int);
+bool deplacementPanda(jardins&, int, int, bool);
 void actualiserAffichagePanda(jardins&);
 void pandaCoupeBambou(jardins&, int);
 void pandaCoupeBambouManuel(jardins&, int);
@@ -120,7 +123,10 @@ void initBambous(
 void initPandas(
 	pandas[],
 	int&,
-	int
+	int,
+	int,
+	int,
+	char[]
 );
 
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
