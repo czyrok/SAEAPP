@@ -128,6 +128,7 @@ void initPandas(
 void actualiserAffichageBambous(jardins&, SDL_Renderer*);
 void actualiserAffichagePandas(jardins&, SDL_Renderer*, SDL_Texture*);
 void actualiserAffichageStatistiques(jardins&, SDL_Renderer*);
+void afficheTempsCalcul(SDL_Renderer*, double[]);
 
 void afficherBoutonsBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int);
 void afficherTexteBoutonBar(SDL_Renderer*, TTF_Font*, SDL_Rect[], char[][NBMaxCaracBoutons], int, int);

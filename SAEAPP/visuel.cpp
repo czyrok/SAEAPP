@@ -79,7 +79,7 @@ void actualiserAffichageBambous(jardins &jardin, SDL_Renderer *rendu)
 
 void actualiserAffichageStatistiques(jardins &jardin, SDL_Renderer *rendu)
 {
-	int hauteurX = taillePandaY,
+	int hauteurY = taillePandaY,
 		compteur = 0,
 		taille = 3;
 
@@ -89,10 +89,10 @@ void actualiserAffichageStatistiques(jardins &jardin, SDL_Renderer *rendu)
 	for (int i = decalage; i < max; i++)
 	{
 		int pointX = tailleStatX * (i - decalage) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
-		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
+		int pointY = TAILLEFENY - hauteurY - (int)(taille / 2);
 
 		int ligneX = tailleStatX * ((i - 1) - decalage) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
-		int ligneY = TAILLEFENY - hauteurX;
+		int ligneY = TAILLEFENY - hauteurY;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 		int pointMaxY = pointY - jardin.tailleMaxStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMaxStat[i];
@@ -130,10 +130,10 @@ void actualiserAffichageStatistiques(jardins &jardin, SDL_Renderer *rendu)
 	for (int i = 0; i < decalage; i++)
 	{
 		int pointX = tailleStatX * (i + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2);
-		int pointY = TAILLEFENY - hauteurX - (int)(taille / 2);
+		int pointY = TAILLEFENY - hauteurY - (int)(taille / 2);
 
 		int ligneX = tailleStatX * ((i - 1) + (NBStats - decalage)) + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX;
-		int ligneY = TAILLEFENY - hauteurX;
+		int ligneY = TAILLEFENY - hauteurY;
 
 		SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
 		int pointMaxY = pointY - jardin.tailleMaxStat[i] <= TAILLEBARY ? TAILLEBARY : pointY - jardin.tailleMaxStat[i];
@@ -249,5 +249,21 @@ void afficherEchelle(SDL_Renderer *rendu)
 	for (int i = 10; i < tailleEchelleStatsY; i += 10)
 	{
 		SDL_RenderDrawLine(rendu, echelle.x - tailleEchelleStatsX / 4, TAILLEFENY - i, echelle.x + echelle.w + tailleEchelleStatsX / 4, TAILLEFENY - i);
+	}
+}
+
+void afficheTempsCalcul(SDL_Renderer* rendu, double tempsCalcul[]) {
+	int taille = 3;
+	int hauteurY = taillePandaY;
+	int decalage = tailleStatsX / 2 - 8 * tailleStatX;
+
+	for (int i = 0; i < 8; i++) {
+		int pointX = tailleStatX * i + TAILLEFENX - tailleStatsX - tailleNBCoupesStatX - tailleEchelleStatsX - (int)(taille / 2) + decalage;
+		int pointY = TAILLEFENY  - hauteurY - tempsCalcul[i];
+
+		SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+		int pointMaxY = pointY - (int)(tempsCalcul[i] * 100) <= TAILLEBARY ? TAILLEBARY : pointY - (int)(tempsCalcul[i] * 100);
+		SDL_Rect point = { pointX, pointMaxY, taille, taille };
+		SDL_RenderFillRect(rendu, &point);
 	}
 }
